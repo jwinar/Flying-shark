@@ -55,6 +55,18 @@ the portfolio's real palette becomes, so the transition into "Justin
 Winartha, Data Analyst" reads as the thread arriving in the present, not a
 hard cut between two unrelated websites.
 
+**Epilogue — the thread, explained.** Added after Chapter 7, immediately
+before the portfolio begins: a dedicated beat that names 红线 directly,
+so a viewer who's been watching a red line drift through every chapter
+without explanation finally gets told what it is and why it's there. Its
+own video/image background (see prompt below), and — unlike the pinned
+scroll-jack chapters — plays as a normal, unpinned scroll-through
+section: after six-plus heavy cinematic beats, a quieter, calmer moment
+reads as intentional pacing rather than more of the same. Replaces/
+absorbs the old `PortfolioTransition.jsx` placeholder, which was already
+gesturing at this idea ("One continuous thread") without ever explaining
+it — being renamed `RedThreadScene.jsx` to match what it actually is.
+
 ## The red thread, made to mean something
 
 Right now it's a decorative SVG squiggle with a color, nothing more.
@@ -237,4 +249,8 @@ Build notes for future chapters:
   moment. Apply this pattern by default for future chapters rather than
   re-diagnosing per chapter.
 
-Chapter 2 (Qin) next — waiting on the video asset.
+**Chapter 2 (Qin) and the Epilogue (red thread explained): prompts
+handed over, waiting on both video assets.** Qin rebuilds the existing
+`QinScene.jsx` (keeps the large 秦 calligraphy character as a chapter-
+card-style graphic layered over the new video). Epilogue is a new scene
+replacing `PortfolioTransition.jsx`, to be renamed `RedThreadScene.jsx`.
