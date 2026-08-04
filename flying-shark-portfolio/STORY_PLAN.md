@@ -207,6 +207,34 @@ reference video I couldn't watch:
 
 ## Status
 
-Phase 1 (Chapter 1 — Origins / Yellow River) kicked off below: narrative
-beat + image prompt handed to the user. Waiting on generated art before
-building the scene.
+**Chapter 1 — Origins / Yellow River: shipped.** Canva-generated video
+(5.7s, trimmed/compressed to MP4 + WebM, poster-frame fallback) now
+plays as LandscapeScene's background, replacing the placeholder CSS
+mountains. Scroll-tied zoom + vignette + title fade, matching the Gate
+scene's treatment. Faint red thread present per the "tentative in
+Chapter 1" arc.
+
+Build notes for future chapters:
+- **Ship both MP4 (H.264) and WebM (VP9) sources, always.** Discovered
+  the hard way — some Chromium builds (including the one in this test
+  environment) can't decode H.264 at all and silently report
+  `NETWORK_NO_SOURCE` with no error event, so the video just never
+  plays. A `<source>` fallback isn't optional polish here, it's load-
+  bearing.
+- Canva's free-tier output (1366x768, ~5.7s, ~3MB H.264) held up well —
+  no upscaling needed; re-encoding at native resolution kept quality
+  while cutting the shipped MP4 to ~1.7MB.
+- Straight hard loop (no crossfade) was fine for this clip because the
+  first/last frames were already near-identical (camera essentially
+  static, only water/mist texture animates). Won't assume this holds
+  for every future clip — check frame 1 vs. last frame each time before
+  deciding a crossfade is unnecessary.
+- Text legibility over video can't rely on a fixed text color choice —
+  a gold overline that read fine over the Gate's dark photo was
+  invisible against this chapter's bright golden sky. Fix used: a soft
+  radial dark backdrop behind the text block itself, so contrast holds
+  regardless of which part of the looping video is behind it at any
+  moment. Apply this pattern by default for future chapters rather than
+  re-diagnosing per chapter.
+
+Chapter 2 (Qin) next — waiting on the video asset.
