@@ -35,6 +35,29 @@ each mode lives:
   section benefits from calm; the history section benefits from spectacle)?
   I have a recommendation below but want your call before touching it.
 
+## Opening / title sequence (not one of the 7 dated chapters)
+
+Original landing scene used the Forbidden City gate photo — striking, but
+it's specifically Qing-era imperial architecture, which put chapter-6
+iconography in the chapter-1 slot as soon as the lineup became
+chronological. Corrected: the landing page needs something grand *and*
+dynasty-neutral, since its job is to represent "5000 years" as a whole,
+not any one era.
+
+**Decision: the Great Wall.** Unambiguously "China" worldwide, inherently
+epic in scale, and — since it was begun under Qin and extended across Han
+through Ming — it doesn't belong to a single dynasty the way the
+Forbidden City does. Carries the "CHINA / 5000 YEARS / SCROLL TO ENTER"
+title card and the zoom-toward-the-vanishing-point treatment (same
+technique as the old gate scene: zoom toward where the wall disappears
+into misty mountains, instead of zooming through a gap in a door).
+
+The Forbidden City photo isn't discarded — it moves to Chapter 6 (Qing),
+recaptioned for a mid-sequence beat instead of a title card. This swap
+happens as one atomic change once the Wall asset exists, not before —
+pulling the current opening before its replacement is ready would leave
+the live site's first impression blank mid-deploy.
+
 ## Draft chapter lineup
 
 Not exhaustive history — major beats only, per your brief. Seven chapters,
@@ -47,7 +70,7 @@ each short. Cut/merge/reorder freely; this is a first draft to react to.
 | 3 | Han — the Silk Road opens | Deep amber / gold | The thread leaves China for the first time. |
 | 4 | Tang — the golden age (618–907) | Vermillion + jade + gold | The world comes to Chang'an. *(Tang china is famously the most colorful era — literally the "sancai" three-color glaze — strongest chapter for going bold.)* |
 | 5 | Song–Ming — ink & invention | Celadon blue-green / ink black-white | Paper, powder, print, porcelain, and a fleet that reaches Africa. |
-| 6 | Qing — the gate closes (1644–1911) | Imperial yellow fading to grey | The empire's last light — *(this is where the Forbidden City gate photo already lives)*. |
+| 6 | Qing — the gate closes (1644–1911) | Imperial yellow fading to grey | The empire's last light — *(the Forbidden City gate photo relocates here from the old opening slot — see "Opening" below)*. |
 | 7 | Modern → today | Cools into the site's living palette | The thread doesn't end. It's still being drawn — by you, scrolling. |
 
 Chapter 7 is the hinge: color drains from cinematic-saturated into whatever
@@ -254,3 +277,14 @@ handed over, waiting on both video assets.** Qin rebuilds the existing
 `QinScene.jsx` (keeps the large 秦 calligraphy character as a chapter-
 card-style graphic layered over the new video). Epilogue is a new scene
 replacing `PortfolioTransition.jsx`, to be renamed `RedThreadScene.jsx`.
+
+**Opening scene: reconsidered, prompt handed over, waiting on the Great
+Wall asset.** Current `GateScene.jsx` (Forbidden City) keeps running as
+the live landing page until the new asset arrives — no interim gap.
+Once the Wall video exists: `GateScene.jsx` gets rebuilt around it as
+the title sequence, and its current Forbidden City content moves into a
+new scene positioned after Chapter 3 (Han/Silk Road) as Chapter 6
+(Qing), recaptioned for a mid-sequence beat. Chapters 4 (Tang) and 5
+(Song–Ming) don't have scene files yet, so Qing will sit directly after
+Silk Road for now until those are built, rather than in its final
+numeric slot.
