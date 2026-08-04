@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { projects } from '../data/projects';
+import Cursor from './Cursor';
 import GateScene from './scenes/GateScene';
 import LandscapeScene from './scenes/LandscapeScene';
 import QinScene from './scenes/QinScene';
@@ -19,9 +20,10 @@ import ProjectCaseStudy from './ProjectCaseStudy';
 const ProjectDetail = () => {
   const { id } = useParams();
   const project = projects.find(p => p.id === id) || projects[0];
-  if (id && id !== 'china-history') return <ProjectCaseStudy project={project} />;
+  if (id && id !== 'china-history') return <><Cursor /><ProjectCaseStudy project={project} /></>;
   return (
     <>
+      <Cursor />
       <GateScene />
       <LandscapeScene />
       <QinScene />
@@ -29,12 +31,12 @@ const ProjectDetail = () => {
       <ModernTransition />
       <PortfolioTransition />
       <PortfolioNavigation />
-      <PortfolioHero />
-      <PortfolioWork />
-      <PortfolioAbout />
+      <div id="hero"><PortfolioHero /></div>
+      <div id="work"><PortfolioWork /></div>
+      <div id="about"><PortfolioAbout /></div>
       <PortfolioExperience />
       <PortfolioCapabilities />
-      <PortfolioContact />
+      <div id="contact"><PortfolioContact /></div>
       <PortfolioFooter />
     </>
   );
