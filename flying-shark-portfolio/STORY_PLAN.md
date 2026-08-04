@@ -4,6 +4,13 @@ Working plan for turning the current 6-scene placeholder intro into an actual
 short scroll-driven film. Not for implementation in one pass — we build it
 chapter by chapter, each chapter gated on real imagery before it's coded.
 
+**Tooling**: video assets generated via Canva (Magic Media), free tier —
+limited monthly credits, short clips (a few seconds), consumer-grade
+control. Prompts are written as plain descriptive language rather than
+professional-tool camera jargon, and clips are generated one chapter at a
+time so credit usage and quality can be assessed before committing to
+video for all seven.
+
 ## The big creative shift (as of this doc)
 
 Original direction was minimal/editorial (black background, restrained gold
