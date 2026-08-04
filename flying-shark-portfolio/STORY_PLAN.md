@@ -164,17 +164,19 @@ reference video I couldn't watch:
 - Work section thumbnails/imagery (still open from the earlier punch list,
   unrelated to the intro but worth not losing track of).
 
-## Open questions to lock before Phase 1
+## Decisions locked
 
-1. Does "rich color, not pure black" apply to the whole site, or just the
-   historical intro? (My recommendation: intro goes bold/saturated;
-   portfolio half stays closer to restrained-but-warmer — not pure black,
-   but still calm enough that your Experience section reads easily. Open to
-   being overruled.)
-2. Is the 7-chapter lineup above roughly right, or too many/too few for
-   "not very long"?
-3. Music: proceed on the plan above (off-by-default, ambient, later phase),
-   or do you want it dropped entirely?
-4. For the reference video — can you describe what specifically stood out
-   (a transition, the titles, the grading), or send a still/two? I want to
-   build toward something specific, not my own guess at "cinematic."
+1. **Color scope**: intro goes fully bold/saturated; portfolio half stays
+   warmer-than-black but calm/legible. Confirmed.
+2. **Chapter count**: proceeding with the 7-chapter lineup above.
+3. **Music**: yes — ambient, off-by-default, built as a later phase after
+   visuals/thread are working.
+4. **Reference video**: unresolved — couldn't fetch/watch it (blocked +
+   no video capability). Not blocking Phase 1; revisit if a specific
+   technique from it still needs to be nailed once we're building.
+
+## Status
+
+Phase 1 (Chapter 1 — Origins / Yellow River) kicked off below: narrative
+beat + image prompt handed to the user. Waiting on generated art before
+building the scene.
