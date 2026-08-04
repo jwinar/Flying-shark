@@ -5,8 +5,9 @@ import GateScene from './scenes/GateScene';
 import LandscapeScene from './scenes/LandscapeScene';
 import QinScene from './scenes/QinScene';
 import SilkRoadScene from './scenes/SilkRoadScene';
+import QingScene from './scenes/QingScene';
 import ModernTransition from './scenes/ModernTransition';
-import PortfolioTransition from './scenes/PortfolioTransition';
+import RedThreadScene from './scenes/RedThreadScene';
 import PortfolioHero from './portfolio/PortfolioHero';
 import PortfolioWork from './portfolio/PortfolioWork';
 import PortfolioAbout from './portfolio/PortfolioAbout';
@@ -28,8 +29,9 @@ const ProjectDetail = () => {
       <LandscapeScene />
       <QinScene />
       <SilkRoadScene />
+      <QingScene />
       <ModernTransition />
-      <PortfolioTransition />
+      <RedThreadScene />
       <PortfolioNavigation />
       <div id="hero"><PortfolioHero /></div>
       <div id="work"><PortfolioWork /></div>

@@ -272,19 +272,62 @@ Build notes for future chapters:
   moment. Apply this pattern by default for future chapters rather than
   re-diagnosing per chapter.
 
-**Chapter 2 (Qin) and the Epilogue (red thread explained): prompts
-handed over, waiting on both video assets.** Qin rebuilds the existing
-`QinScene.jsx` (keeps the large 秦 calligraphy character as a chapter-
-card-style graphic layered over the new video). Epilogue is a new scene
-replacing `PortfolioTransition.jsx`, to be renamed `RedThreadScene.jsx`.
+**Chapter 2 (Qin), Opening (Great Wall), Qing relocation, and the
+Epilogue: all four shipped in one batch** — all three video assets
+arrived together. Build notes:
 
-**Opening scene: reconsidered, prompt handed over, waiting on the Great
-Wall asset.** Current `GateScene.jsx` (Forbidden City) keeps running as
-the live landing page until the new asset arrives — no interim gap.
-Once the Wall video exists: `GateScene.jsx` gets rebuilt around it as
-the title sequence, and its current Forbidden City content moves into a
-new scene positioned after Chapter 3 (Han/Silk Road) as Chapter 6
-(Qing), recaptioned for a mid-sequence beat. Chapters 4 (Tang) and 5
-(Song–Ming) don't have scene files yet, so Qing will sit directly after
-Silk Road for now until those are built, rather than in its final
-numeric slot.
+- **Applied the crossfade self-loop technique to all four videos,
+  including redoing Chapter 1.** Chapter 1's clip happened to have a
+  near-static camera, so a hard loop looked fine by luck; the Qin and
+  Epilogue clips both have real camera/thread motion and would have
+  shown a visible jump on a hard loop. Rather than judging case-by-case,
+  built one reusable pipeline (trim → self-crossfade via ffmpeg's xfade,
+  same clip fed as both inputs, tail blended into head → re-encode to
+  MP4 + WebM + poster) and ran all four videos through it, including
+  Chapter 1 retroactively, so every chapter gets the same seam-hiding
+  treatment rather than relying on a clip happening to loop cleanly on
+  its own. Verified frame-by-frame (extracted the exact loop-boundary
+  frames and compared) that the blend is seamless, not just assumed.
+- **Qin** (`QinScene.jsx`, rebuilt in place): bronze/lacquer terracotta-
+  army video, the 秦 character kept as a faint (16% opacity) overlay
+  rather than a bold graphic — reads as background texture, not a
+  competing focal point. Thread bumped up from Chapter 1's faint/
+  tentative treatment (opacity 0.32) to a more confident 0.5, matching
+  the "unification" beat.
+- **Opening** (`GateScene.jsx`, rebuilt around the Great Wall clip):
+  carries the "CHINA / 5000 YEARS / SCROLL TO ENTER" title card, same
+  zoom-toward-vanishing-point treatment as before, retargeted to where
+  the wall recedes into the misty mountains.
+- **Qing relocation** (new `QingScene.jsx`): the original Forbidden
+  City gate photo and door-zoom treatment, moved out of the opening
+  slot and recaptioned for its correct chronological beat ("The
+  empire's last light. A gate begins to close.", QING · 1644–1911).
+  Positioned directly after the still-unbuilt Silk Road scene for now,
+  since Chapters 4 (Tang) and 5 (Song–Ming) don't have scene files yet
+  — will move to its exact numeric slot once those exist. Thread here
+  is toned down again (opacity 0.4) rather than continuing to thicken,
+  gesturing at the "fraying through Qing's decline" arc from the plan,
+  though a real frayed/broken stroke rendering is still a follow-up,
+  not implemented yet.
+- **Epilogue** (new `RedThreadScene.jsx`, replaces the old
+  `PortfolioTransition.jsx` placeholder): plays unpinned, as planned —
+  no scroll-jack, just a normal reveal-on-scroll-into-view. The video
+  itself (a glowing red thread turning in darkness) *is* the thread, so
+  no decorative Silk overlay on top of it. Copy names 红线 (Red Thread
+  of Fate) directly and explicitly ties it back to what the viewer's
+  been watching through every prior chapter.
+
+Verified across desktop (1440x900), mobile (390x844), and a dedicated
+`prefers-reduced-motion` pass (confirmed 0 `<video>` elements / 4
+poster `<img>` fallbacks) — zero console/page/request errors in any
+pass, including a route change into a case-study page.
+
+**Known follow-up, not yet done:** all chapter videos currently mount
+and start loading/playing on initial page load regardless of scroll
+position, rather than lazy-loading as each chapter approaches viewport
+(the performance goal stated earlier in this doc). Fine at 4 chapters;
+should be addressed before Tang/Song–Ming add more video weight.
+
+Chapters 3 (Han/Silk Road), 4 (Tang), and 5 (Song–Ming) remain — Silk
+Road still has its original placeholder CSS content, Tang and Song–Ming
+don't have scene files yet.
