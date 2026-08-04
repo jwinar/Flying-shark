@@ -1,0 +1,11 @@
+import { personal } from '../../data/personal';
+const PortfolioCapabilities = () => {
+  return <div style={{ padding:'80px 40px', maxWidth:'900px', margin:'0 auto' }}>
+    <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(32px,4vw,48px)', fontWeight:300, marginBottom:'32px' }}>Capabilities</h2>
+    <div><h4 style={{ fontFamily:'var(--font-ui)', fontSize:'14px', letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--color-text-muted)' }}>Technical</h4><div style={{ display:'flex', flexWrap:'wrap', gap:'8px', margin:'8px 0 24px' }}>{personal.skills.technical.map(s => <span key={s} style={{ fontFamily:'var(--font-ui)', fontSize:'14px', color:'var(--color-text-secondary)', border:'1px solid var(--color-text-muted)', padding:'4px 12px', borderRadius:'4px' }}>{s}</span>)}</div></div>
+    <div><h4 style={{ fontFamily:'var(--font-ui)', fontSize:'14px', letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--color-text-muted)' }}>Soft</h4><div style={{ display:'flex', flexWrap:'wrap', gap:'8px', margin:'8px 0 24px' }}>{personal.skills.soft.map(s => <span key={s} style={{ fontFamily:'var(--font-ui)', fontSize:'14px', color:'var(--color-text-secondary)', border:'1px solid var(--color-text-muted)', padding:'4px 12px', borderRadius:'4px' }}>{s}</span>)}</div></div>
+    <div><h4 style={{ fontFamily:'var(--font-ui)', fontSize:'14px', letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--color-text-muted)' }}>Certifications</h4><ul style={{ listStyle:'none', marginTop:'8px' }}>{personal.certifications.map(c => <li key={c} style={{ fontFamily:'var(--font-ui)', fontSize:'15px', color:'var(--color-text-secondary)', padding:'4px 0', borderBottom:'1px solid var(--color-text-muted)' }}>{c}</li>)}</ul></div>
+    <div style={{ marginTop:'32px' }}><h4 style={{ fontFamily:'var(--font-ui)', fontSize:'14px', letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--color-text-muted)' }}>Education</h4><p style={{ fontFamily:'var(--font-ui)', fontSize:'16px', color:'var(--color-text-secondary)', marginTop:'4px' }}>{personal.education.degree} – {personal.education.field}</p><p style={{ fontFamily:'var(--font-ui)', fontSize:'14px', color:'var(--color-text-muted)' }}>{personal.education.institution} · {personal.education.year}</p></div>
+  </div>;
+};
+export default PortfolioCapabilities;
