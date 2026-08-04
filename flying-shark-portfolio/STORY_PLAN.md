@@ -81,29 +81,52 @@ Concrete ways to earn that instead of just asserting it:
 Since I can't generate images myself (no image-gen tool in this
 environment — only Bash/code), here's the loop for each chapter:
 
-1. I write the chapter's narrative beat (one or two lines, film-caption
-   length, not an essay) and a **detailed image-generation prompt** matched
-   to that chapter's color identity and mood, styled to sit next to the
-   Forbidden City gate photo without clashing.
-2. You either generate it (same tool you used for the gate/portrait) or
-   supply your own photo/art.
-3. I build the scene: grading, parallax, motion, thread integration, caption
-   timing — same treatment as the Gate scene, verified with real scroll
+Matches the three-part production process named directly: **generate the
+creative concept → produce the background asset → code the interactive
+element.** Split by who owns each part:
+
+1. **Creative concept (me):** the chapter's narrative beat (one or two
+   lines, film-caption length) plus a **detailed generation prompt** —
+   image or video — matched to that chapter's color identity and mood,
+   consistent with the Forbidden City gate's style.
+2. **Asset production (you):** generate it with your video/image tool, or
+   supply your own footage/photo/art.
+3. **Interactive coding (me):** build the scene — compression/looping,
+   grading, parallax, thread integration, caption timing, scroll-trigger
+   behavior — same rigor as the Gate scene, verified with real scroll
    testing before it ships.
 4. Repeat for the next chapter.
 
 This keeps each phase small and reviewable instead of me guessing at seven
 images' worth of art direction in one shot.
 
-**Video vs. still images**: video (subtle looping motion — drifting mist,
-flickering light, a river's current) reads more alive than a static photo,
-but costs real complexity — file size, mobile autoplay policy (must be
-muted + inline), and it's much harder to generate/source well than stills.
-Recommend: **stills with Ken-Burns/parallax treatment for most chapters**
-(the Gate scene proves this can look excellent), and reserve actual video
-for at most one "hero moment" — Tang's Chang'an marketplace, or the Silk
-Road caravan, are the strongest candidates if we want to spend that budget
-on exactly one chapter.
+**Video vs. still images — revised.** Per direction: "high-end,
+scroll-driven cinematic" sites, video assets are the default medium, not
+a one-chapter exception. Updated approach:
+
+- **Default per chapter: a short looping background video** (drifting
+  mist, flickering light, a river's current, dust in the air) rather than
+  a static graded photo. The Gate scene's Ken-Burns-on-a-still technique
+  becomes the *fallback* for any chapter where video isn't feasible, not
+  the default.
+- **I still can't generate video** — same constraint as images, just a
+  different tool on your end (Runway, Kling, Luma, Pika, Sora, etc.). Same
+  workflow as before: I write a chapter's narrative beat + a video-generation
+  prompt (motion described explicitly, since video prompts need that —
+  camera drift, what moves in-frame, loop-ability), you generate it, I
+  build the scene around it.
+- **What I own on the technical side once you hand me a clip:**
+  compressing/transcoding it (I have ffmpeg available) into a web-safe
+  loop, muted + `playsinline` + `autoplay` (required for it to play at all
+  on mobile), a poster-frame fallback image for the instant before the
+  video loads and for `prefers-reduced-motion` visitors, and lazy-loading
+  each chapter's video so we're not shipping seven video files on first
+  paint — only the chapter someone's about to scroll into loads.
+- **Practical limit**: quality video generation is much more expensive
+  (time, generation credits, iteration) than stills. Suggest we don't
+  commit to "all 7 in video" as a hard rule up front — generate Chapter 1,
+  see how it looks and how much friction it takes, and decide chapter-by-
+  chapter from there rather than over-promising now.
 
 ## Music: verdict
 
