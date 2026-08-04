@@ -1,0 +1,6 @@
+{
+  "installCommand": "cd flying-shark-portfolio && npm install",
+  "buildCommand": "cd flying-shark-portfolio && npm run build",
+  "outputDirectory": "flying-shark-portfolio/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
