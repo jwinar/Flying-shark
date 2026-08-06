@@ -372,3 +372,47 @@ verified against the real element rather than a stale scroll-distance
 assumption, but the underlying "all videos load immediately regardless
 of position" issue is real and will only get noisier at 7-8 chapters).
 Should be addressed before adding Song–Ming and rebuilding Silk Road.
+
+## Fixed: lazy-loading + Wall video quality
+
+**Lazy-loading**: shipped. New `useInView` hook (IntersectionObserver,
+800px preload margin) — a chapter's `<video>` now only mounts once it's
+actually approaching the viewport, otherwise it renders the lightweight
+poster `<img>`. One real bug surfaced while building it: passing an
+inline `{ rootMargin: '0px' }` object as the hook's argument put a new
+object reference in the effect's dependency array every render, which
+left GateScene's observer racing its own re-creation and never
+resolving — confirmed via direct DOM inspection that the container was
+correctly positioned (not a layout bug) before finding the real cause.
+Root cause went deeper than the object-identity issue, too: a
+scene reached only by scrolling gets many IntersectionObserver
+recheck opportunities for free from the scroll events themselves, but
+Gate — always visible on load, zero required interaction — has no
+guaranteed recheck if a user doesn't move the mouse or scroll right
+away. Since eager-loading is simply *correct* for the one scene that's
+always the first thing on screen, removed lazy-loading from Gate
+entirely rather than fighting the race, and fixed the hook itself
+(primitive `rootMargin` string, not an object) for every other scene.
+Verified programmatically, not just visually: 1 video / 4 posters at
+rest (Gate eager, rest lazy), 5 videos / 0 posters after a full scroll.
+
+**Wall video quality**: user directly flagged the opening scene as
+"almost like 480p." Diagnosed properly instead of guessing — diffed a
+cropped region of the shipped encode against the original upload at
+matching coordinates and found them nearly identical, so compression
+wasn't the culprit. Real cause: the source is 1366x768, and Gate zoomed
+it 1.4x during scroll (every other chapter uses a gentler 1.15-1.18x);
+on a 1920px-wide screen that's the source stretched ~2x past native
+resolution. Fixed by dropping Gate's zoom to 1.2x and re-encoding the
+source at 2200px wide (lanczos upscale + mild unsharp mask) for real
+headroom, not just a quick CRF bump that wouldn't have touched the
+actual resolution ceiling.
+
+**Chapter 3 (Han/Silk Road): prompt handed over, waiting on the video
+asset.** The last remaining placeholder from the original generator
+script — still flat CSS ("丝绸之路 / THE SILK ROAD" text over a static
+gradient). Will rebuild `SilkRoadScene.jsx` in place, same pattern as
+Origins/Qin. Source video for this one will be upscaled/sharpened at
+2200px wide from the start (the same treatment just applied to Wall),
+rather than starting at native resolution and fixing it after a
+complaint.
