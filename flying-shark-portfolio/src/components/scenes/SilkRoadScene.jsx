@@ -9,12 +9,14 @@ const SilkRoadScene = () => {
   const containerRef = useRef(null);
   const mediaRef = useRef(null);
   const vignetteRef = useRef(null);
-  const titleRef = useRef(null);
+  const charRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
 
   useGSAP(() => {
+    gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -27,7 +29,7 @@ const SilkRoadScene = () => {
     });
 
     tl.to(mediaRef.current, { scale: 1.15, duration: 1, ease: 'power1.in' }, 0)
-      .to(titleRef.current, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.out' }, 0.15)
+      .to(charRef.current, { opacity: 0.16, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
       .to(textRef.current, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.out' }, 0.15)
       .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.4);
   }, []);
@@ -50,10 +52,7 @@ const SilkRoadScene = () => {
 
       <Silk path="M 5 78 Q 30 40, 60 58 T 95 30" color="#b31b1b" thickness={2.1} opacity={0.55} />
 
-      <div ref={titleRef} style={{ position: 'absolute', top: '14%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '0 24px' }}>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px,7vw,80px)', color: '#e0b96a', fontWeight: 300, letterSpacing: '-0.02em', textShadow: '0 4px 24px rgba(0,0,0,0.8)' }}>丝绸之路</h2>
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: 'clamp(13px,1.4vw,18px)', color: '#d8cdb8', letterSpacing: '0.25em', marginTop: '6px', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>THE SILK ROAD</p>
-      </div>
+      <div ref={charRef} style={{ position: 'absolute', top: '46%', left: '50%', transform: 'translate(-50%,-50%)', fontSize: 'clamp(160px,34vw,460px)', fontFamily: 'var(--font-display)', color: '#e0b96a', pointerEvents: 'none', zIndex: 4 }}>丝</div>
 
       <div ref={textRef} style={{ position: 'absolute', bottom: '16%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '36px 24px 24px' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 100% at 50% 50%, rgba(5,3,1,0.65) 0%, rgba(5,3,1,0.28) 55%, transparent 80%)', zIndex: -1 }} />

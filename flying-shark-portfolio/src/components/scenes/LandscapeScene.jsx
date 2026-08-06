@@ -9,11 +9,14 @@ const LandscapeScene = () => {
   const containerRef = useRef(null);
   const mediaRef = useRef(null);
   const vignetteRef = useRef(null);
+  const charRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
 
   useGSAP(() => {
+    gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -26,6 +29,7 @@ const LandscapeScene = () => {
     });
 
     tl.to(mediaRef.current, { scale: 1.18, duration: 1, ease: 'power1.in' }, 0)
+      .to(charRef.current, { opacity: 0.16, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
       .to(textRef.current, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.out' }, 0.15)
       .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.4);
   }, []);
@@ -54,6 +58,8 @@ const LandscapeScene = () => {
       <div ref={vignetteRef} style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 55%, transparent 0%, rgba(10,6,2,0.55) 55%, #0a0602 100%)', opacity: 0 }} />
 
       <Silk path="M 15 25 Q 40 15, 55 22 T 88 12" color="#b31b1b" thickness={1.5} opacity={0.32} />
+
+      <div ref={charRef} style={{ position: 'absolute', top: '46%', left: '50%', transform: 'translate(-50%,-50%)', fontSize: 'clamp(160px,34vw,460px)', fontFamily: 'var(--font-display)', color: '#c9a84c', pointerEvents: 'none', zIndex: 4 }}>源</div>
 
       <div ref={textRef} style={{ position: 'absolute', bottom: '14%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '36px 24px 24px' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 100% at 50% 50%, rgba(8,5,2,0.6) 0%, rgba(8,5,2,0.25) 55%, transparent 80%)', zIndex: -1 }} />

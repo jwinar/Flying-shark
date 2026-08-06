@@ -641,3 +641,45 @@ One new technical wrinkle, worth recording since it'll recur:
   390×844, plus `prefers-reduced-motion` (zero `<video>` elements) —
   zero console errors, and confirmed the chapter lands in the correct
   chronological position between Tang and Qing.
+
+## Consistency pass: one seal-character per chapter, everywhere
+
+User feedback: Chapter 2 (Qin)'s giant faint 秦 character — fading in
+from invisible to a soft translucent glyph centered behind the text,
+then getting swallowed by the darkening vignette — read as "great,"
+and asked for the same treatment on every chapter rather than just
+one. Before touching code, actually checked what existed: only Qin had
+this pattern (`charRef`, `gsap.set` to opacity 0/scale 0.85, tweened to
+opacity 0.16/scale 1 partway through the pinned scroll). Silk Road had
+a *different* treatment — a compact two-line title block ("丝绸之路 /
+THE SILK ROAD") that only fades out, never in — which is almost
+certainly what the user was actually pointing at ("3rd chapter" by
+casual scroll-order counting: Gate, Landscape, Qin = 3rd), even though
+the underlying code differs from what they described. Rather than
+guess further, standardized every chapter on the one pattern that
+matches the "appears then disappears" description (Qin's), including
+folding Silk Road's old title into it instead of running two systems.
+
+One seal character per scene now, same animation, same position
+(`top:46%, left:50%`, `clamp(160px,34vw,460px)`), same fade-in/scale
+choreography, colored to each chapter's existing palette:
+
+| Scene | Character | Meaning |
+|---|---|---|
+| Gate (opening) | 城 | wall / fortress |
+| Ch1 Origins | 源 | origin / source |
+| Ch2 Qin | 秦 | (unchanged — the original reference) |
+| Ch3 Silk Road | 丝 | silk — replaces the old title block |
+| Ch4 Tang | 唐 | the dynasty name |
+| Ch5 Song–Ming | 墨 | ink |
+| Ch6 Qing | 清 | the dynasty name |
+| Ch7 Modern | 今 | now / present |
+
+Epilogue (`RedThreadScene`) deliberately excluded — it already names
+红线 directly in its own overline, isn't pinned/scrubbed like the other
+eight scenes, and doesn't need a third way of saying the same thing.
+
+Verified with a scripted scroll through all eight scenes at the
+scroll-fraction where Qin's own glyph is known to read well (confirmed
+by screenshotting each one), plus mobile and `prefers-reduced-motion`
+passes — zero console errors throughout.

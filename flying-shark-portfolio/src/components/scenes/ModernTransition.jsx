@@ -9,11 +9,14 @@ const ModernTransition = () => {
   const containerRef = useRef(null);
   const mediaRef = useRef(null);
   const vignetteRef = useRef(null);
+  const charRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
 
   useGSAP(() => {
+    gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -26,6 +29,7 @@ const ModernTransition = () => {
     });
 
     tl.to(mediaRef.current, { scale: 1.15, duration: 1, ease: 'power1.in' }, 0)
+      .to(charRef.current, { opacity: 0.16, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
       .to(textRef.current, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.out' }, 0.15)
       .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.4);
   }, []);
@@ -47,6 +51,8 @@ const ModernTransition = () => {
       <div ref={vignetteRef} style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,8,8,0.65) 55%, #080808 100%)', opacity: 0 }} />
 
       <Silk path="M 6 62 Q 28 40, 50 52 T 94 32" color="#9e1d1d" thickness={2} wind={0.5} opacity={0.5} />
+
+      <div ref={charRef} style={{ position: 'absolute', top: '46%', left: '50%', transform: 'translate(-50%,-50%)', fontSize: 'clamp(160px,34vw,460px)', fontFamily: 'var(--font-display)', color: 'var(--color-gold)', pointerEvents: 'none', zIndex: 4 }}>今</div>
 
       <div ref={textRef} style={{ position: 'absolute', bottom: '16%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '36px 24px 24px' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 100% at 50% 50%, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.28) 55%, transparent 80%)', zIndex: -1 }} />

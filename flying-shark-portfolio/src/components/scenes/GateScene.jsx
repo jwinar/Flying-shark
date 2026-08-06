@@ -10,10 +10,13 @@ const GateScene = () => {
   const mediaRef = useRef(null);
   const vignetteRef = useRef(null);
   const titleRef = useRef(null);
+  const charRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
+    gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -26,6 +29,7 @@ const GateScene = () => {
     });
 
     tl.to(mediaRef.current, { scale: 1.2, duration: 1, ease: 'power1.in' }, 0)
+      .to(charRef.current, { opacity: 0.16, scale: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
       .to(titleRef.current, { opacity: 0, y: -24, duration: 0.6, ease: 'power2.out' }, 0.12)
       .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.35);
   }, []);
@@ -48,6 +52,8 @@ const GateScene = () => {
         ref={vignetteRef}
         style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 47% 33%, transparent 0%, rgba(10,7,4,0.55) 55%, #0a0704 100%)', opacity: 0 }}
       />
+
+      <div ref={charRef} style={{ position: 'absolute', top: '46%', left: '50%', transform: 'translate(-50%,-50%)', fontSize: 'clamp(160px,34vw,460px)', fontFamily: 'var(--font-display)', color: '#c9a84c', pointerEvents: 'none', zIndex: 4 }}>城</div>
 
       <div ref={titleRef} style={{ position: 'absolute', bottom: '14%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '0 20px' }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,6vw,80px)', color: '#f5efe3', letterSpacing: '0.08em', fontWeight: 300, textShadow: '0 4px 24px rgba(0,0,0,0.7)' }}>CHINA / 5000 YEARS</h1>
