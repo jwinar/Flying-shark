@@ -683,3 +683,24 @@ Verified with a scripted scroll through all eight scenes at the
 scroll-fraction where Qin's own glyph is known to read well (confirmed
 by screenshotting each one), plus mobile and `prefers-reduced-motion`
 passes — zero console errors throughout.
+
+## Second audio track: Tang, and multi-track handoff confirmed working
+
+"Chang'an at Golden Hour" trimmed/looped/wired into `TangScene.jsx`
+the same way as the Gate track: scanned RMS/peak levels to find a
+steady 52s window (90–142s, avoiding a loud swell around 50s and a
+quiet fade tail around 150s), self-crossfaded the loop seam, loudnorm
+to -20 LUFS, 128kbps mp3.
+
+This is the first chapter besides Gate to get a track, so it's also
+the first real test of **multiple simultaneous `AmbientTrack`s
+handing off to each other** rather than just one turning on/off.
+Wired the same way: `useInViewport` (the bidirectional hook, not the
+one-shot `useInView` already used for the scene's video lazy-load) so
+the track can fade both in and out as Tang scrolls in and out of view.
+Verified end to end with a scripted pass — enabled audio at Gate,
+confirmed Gate's track was the only one playing; scrolled to Tang,
+confirmed Gate faded out and Tang faded in; scrolled past Tang to
+Qing, confirmed both tracks paused at volume 0. Zero console errors.
+
+Five chapters plus the epilogue still need a track.
