@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
+import { useInViewport } from '../../hooks/useInViewport';
 import Silk from '../cinematic/Silk';
+import AmbientTrack from '../cinematic/AmbientTrack';
 
 const QingScene = () => {
   const containerRef = useRef(null);
@@ -9,6 +11,7 @@ const QingScene = () => {
   const vignetteRef = useRef(null);
   const charRef = useRef(null);
   const textRef = useRef(null);
+  const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
     gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
@@ -63,6 +66,8 @@ const QingScene = () => {
           The empire's last light. A gate begins to close.
         </h2>
       </div>
+
+      <AmbientTrack src="/assets/audio/qing-ambient.mp3" inView={inViewport} volume={0.35} />
     </div>
   );
 };

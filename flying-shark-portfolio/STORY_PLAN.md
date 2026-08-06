@@ -799,3 +799,19 @@ maps `projects` through it rather than inlining each row).
 
 **Explicitly not done yet, per direction**: real screenshots and any
 copy changes — "we will figure out what to fill in the text after."
+
+## Fourth audio track: Qing ("The Last Light of the Empire")
+
+Same pipeline again. Source had one loud spike (~t=130, peak -2.8dB)
+that the level scan caught before picking a window — sampled 60–112s
+instead, moderate and fairly consistent (RMS -14 to -22dB). Self-
+crossfaded, loudnorm to -20 LUFS, 128kbps mp3. `QingScene.jsx` had no
+`useInView`/reduced-motion wiring at all (it's the one chapter still
+built on a static background image, not video), so this was the first
+track wired into a scene without that existing scaffolding — added
+`useInViewport` fresh alongside the existing GSAP timeline. Verified:
+enabling audio and scrolling to Qing plays only its track, all three
+earlier tracks confirmed paused. Zero console errors.
+
+Four chapters plus the epilogue still need a track (Origins, Qin,
+Song-Ming, Modern, and the epilogue itself).
