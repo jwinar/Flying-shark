@@ -599,3 +599,45 @@ later once scrolled out of the Gate scene's viewport.
 **Next step**: six chapters plus the epilogue still have no track.
 Same one-clip-at-a-time approach as the videos — generate, hand over,
 I trim/loop/wire — rather than committing to all eight up front.
+
+## Chapter 5 (Song–Ming): shipped — every chapter now built
+
+New `SongMingScene.jsx`, wired into `ProjectDetail.jsx` between Tang
+and Qing (chronologically correct slot). All seven historical chapters
+plus the epilogue are now real, built scenes — nothing left unbuilt.
+
+The clip: a slow lateral pan/push across a celadon-porcelain-and-ink
+still life — teal vases, handmade paper, an armillary sphere, a
+half-unrolled ink-wash landscape scroll with a red seal. Landed almost
+exactly on brief without needing any color grading; the muted
+blue-green/black-white palette does the "calm exhale after Tang" job
+on its own. Thread continues its arc at opacity 0.58/thickness 2.1 —
+just past Tang's 0.65 peak, starting the taper toward Qing's 0.4
+fraying, rather than dropping straight from peak to decline.
+
+One new technical wrinkle, worth recording since it'll recur:
+
+- **Watermark removal needed a tighter box than the reused-coordinates
+  default for the first time.** The standard `delogo=x=1120:y=548:
+  w=120:h=120` box (working unmodified across Tang, Silk Road, Modern)
+  left a visible smeared blur patch here — this clip's camera pans
+  onto a highly-textured area (a curved rolled scroll edge) right
+  where the watermark sits, and `delogo`'s directional-interpolation
+  reconstruction can't fake that kind of detailed geometry the way it
+  fakes flat sky or glass. **Fix**: measured the actual icon bounds
+  directly (cropped candidate boxes from a clean frame and iterated
+  until the icon was fully contained with minimal margin) instead of
+  reusing the looser default, landing on a much tighter `x=1140:y=565:
+  w=100:h=100`. Confirmed clean on the busiest frame before
+  committing to the full encode. **Rule added**: the reused watermark
+  coordinates are a good starting guess, not a guarantee — always
+  crop-check against the busiest frame in the clip (not just frame 0),
+  and re-measure a tighter box when the background there isn't flat.
+- Same boomerang-loop call as Tang/Modern (large continuous pan, not a
+  static drift) — verified seamless via the same seam-diff check.
+  1920px width, CRF 25/33, landed at 3.2MB/1.6MB without a second pass
+  needed this time.
+- Verified end to end with a scripted browser pass at 1440×900 and
+  390×844, plus `prefers-reduced-motion` (zero `<video>` elements) —
+  zero console errors, and confirmed the chapter lands in the correct
+  chronological position between Tang and Qing.
