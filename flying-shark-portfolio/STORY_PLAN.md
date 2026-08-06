@@ -331,3 +331,9 @@ should be addressed before Tang/Song–Ming add more video weight.
 Chapters 3 (Han/Silk Road), 4 (Tang), and 5 (Song–Ming) remain — Silk
 Road still has its original placeholder CSS content, Tang and Song–Ming
 don't have scene files yet.
+
+**Chapter 4 (Tang): prompt handed over, waiting on the video asset.**
+Chosen to go next out of order (before Chapter 3/Silk Road, which still
+needs its rebuild) since it's the "go bold" chapter. No scene file
+exists yet — will be a new `TangScene.jsx`, not a rebuild-in-place like
+Qin/Origins were.
