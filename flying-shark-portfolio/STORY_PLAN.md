@@ -408,11 +408,33 @@ source at 2200px wide (lanczos upscale + mild unsharp mask) for real
 headroom, not just a quick CRF bump that wouldn't have touched the
 actual resolution ceiling.
 
-**Chapter 3 (Han/Silk Road): prompt handed over, waiting on the video
-asset.** The last remaining placeholder from the original generator
-script — still flat CSS ("丝绸之路 / THE SILK ROAD" text over a static
-gradient). Will rebuild `SilkRoadScene.jsx` in place, same pattern as
-Origins/Qin. Source video for this one will be upscaled/sharpened at
-2200px wide from the start (the same treatment just applied to Wall),
-rather than starting at native resolution and fixing it after a
-complaint.
+**Chapter 3 (Han/Silk Road): shipped.** New video in `SilkRoadScene.jsx`
+(rebuilt in place, kept the 丝绸之路 / THE SILK ROAD title treatment from
+the original placeholder). This was the last scene still on the
+original generator script's flat CSS — every chapter is now a real
+video. Thread continues its arc (opacity 0.55, between Qin's 0.5 and
+Tang's 0.65).
+
+Two things worth recording:
+
+- **Same watermark, same fix.** This clip had the identical sparkle
+  icon in almost the identical position as Tang's — same `delogo` box
+  coordinates worked with only a marginal check first. Two-for-two
+  evidence that Canva's watermark position is consistent enough to
+  reuse coordinates as a starting guess, though still worth a quick
+  crop-and-check before trusting it blind.
+- **Boomerang chosen preemptively this time, and file size needed a
+  second pass.** The clip's motion looked like a moderate continuous
+  push-in across the full 10s (not Chapter 1's near-static drift, not
+  quite Tang's dramatic wide-to-close dolly either) — ambiguous enough
+  that, per the rule from the Tang writeup, defaulted to boomerang
+  rather than risk a crossfade ghost. That was the right call, but the
+  first encode at the by-then-standard 2200px width came out to 11MB —
+  this scene's fine sand-texture detail across the *entire* frame
+  compresses far less efficiently than Tang's cleaner architectural
+  surfaces, so the same width/CRF recipe doesn't transfer uniformly
+  across content types. Dropped to 1920px width and a higher CRF
+  (27/36 instead of 21/28), landing at a much more reasonable 4.6MB/
+  3.5MB without a visible quality loss. **Rule added**: check the
+  actual output file size before shipping, not just the visual crop —
+  a recipe tuned on one clip's content isn't guaranteed to transfer.
