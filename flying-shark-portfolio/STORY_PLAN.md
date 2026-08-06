@@ -830,3 +830,36 @@ errors.
 
 Three chapters plus the epilogue still need a track (Qin, Song-Ming,
 Modern, and the epilogue itself).
+
+## Sixth audio track: Qin ("Bronze Unification")
+
+Same pipeline. The source builds toward its back half (RMS climbing to
+~-9dB after t=130), so picked the restrained 60–112s window instead.
+Two verification notes worth recording:
+
+- **A seam that looked wrong but wasn't.** The waveform-at-the-seam
+  check — the standard visual check used for every track so far —
+  showed a clear quiet→active step near the loop point, which reads
+  like a discontinuity. Measured it instead of trusting the picture:
+  the loop's last second (-24.1dB RMS) and first second (-23.4dB)
+  match within 0.7dB, *tighter* than the already-shipped and
+  fine-sounding Origins track (3.9dB gap). The step was bell-strike
+  dynamics landing shortly *after* the loop point, not a break at it.
+  **Rule added**: for percussive/struck-instrument material the seam
+  waveform image is a weak signal — compare head/tail RMS numerically
+  before re-cutting a window.
+- **A "regression" that was a measurement artifact.** A single-point
+  check at Silk Road came back all-tracks-paused, which looked like
+  the new wiring had broken an existing chapter. Swept the entire
+  intro in 600px steps rather than guessing: Silk Road plays correctly
+  across 6000–7200: the one-off check had simply landed on a scene
+  boundary. **Rule added**: verify audio with a scroll sweep, not a
+  single scroll position — scene boundaries produce false negatives.
+
+The sweep also confirmed the overall behavior is right: each chapter's
+track plays across its own range, adjacent tracks briefly overlap at
+boundaries (that's the intended volume crossfade, not a bug), and the
+only silent stretches are exactly the chapters with no track yet.
+
+Two chapters plus the epilogue still need a track (Song-Ming, Modern,
+and the epilogue itself).
