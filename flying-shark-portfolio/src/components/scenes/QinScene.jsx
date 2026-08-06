@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useInView } from '../../hooks/useInView';
 import Silk from '../cinematic/Silk';
 
 const QinScene = () => {
@@ -11,6 +12,7 @@ const QinScene = () => {
   const charRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
+  const inView = useInView(containerRef);
 
   useGSAP(() => {
     gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
@@ -35,7 +37,7 @@ const QinScene = () => {
   return (
     <div ref={containerRef} style={{ height: '100vh', position: 'relative', overflow: 'hidden', background: '#0e0a06' }}>
       <div ref={mediaRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
-        {prefersReducedMotion ? (
+        {prefersReducedMotion || !inView ? (
           <img src="/assets/videos/ch2-qin-poster.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
           <video autoPlay muted loop playsInline poster="/assets/videos/ch2-qin-poster.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }}>

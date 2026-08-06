@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useInView } from '../../hooks/useInView';
 import Silk from '../cinematic/Silk';
 
 const LandscapeScene = () => {
@@ -10,6 +11,7 @@ const LandscapeScene = () => {
   const vignetteRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
+  const inView = useInView(containerRef);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -31,7 +33,7 @@ const LandscapeScene = () => {
   return (
     <div ref={containerRef} style={{ height: '100vh', position: 'relative', overflow: 'hidden', background: '#120c06' }}>
       <div ref={mediaRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
-        {prefersReducedMotion ? (
+        {prefersReducedMotion || !inView ? (
           <img src="/assets/videos/ch1-origins-poster.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
           <video

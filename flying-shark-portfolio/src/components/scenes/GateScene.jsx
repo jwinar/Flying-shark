@@ -22,7 +22,7 @@ const GateScene = () => {
       }
     });
 
-    tl.to(mediaRef.current, { scale: 1.4, duration: 1, ease: 'power1.in' }, 0)
+    tl.to(mediaRef.current, { scale: 1.2, duration: 1, ease: 'power1.in' }, 0)
       .to(titleRef.current, { opacity: 0, y: -24, duration: 0.6, ease: 'power2.out' }, 0.12)
       .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.35);
   }, []);
