@@ -1,14 +1,19 @@
 import { useRef } from 'react';
 import { useGSAP } from '../../hooks/useGSAP';
-import { gsap, ScrollTrigger } from '../../animations/core/gsap';
+import { gsap } from '../../animations/core/gsap';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useInView } from '../../hooks/useInView';
 import Silk from '../cinematic/Silk';
 
 const ModernTransition = () => {
   const containerRef = useRef(null);
-  const cityRef = useRef(null);
+  const mediaRef = useRef(null);
+  const vignetteRef = useRef(null);
   const textRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
+  const inView = useInView(containerRef);
 
-  useGSAP((ctx) => {
+  useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -19,32 +24,39 @@ const ModernTransition = () => {
         anticipatePin: 1,
       }
     });
-    tl.fromTo(cityRef.current, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 2, ease: 'power2.out' })
-      .fromTo(textRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.5 }, 0.6);
+
+    tl.to(mediaRef.current, { scale: 1.15, duration: 1, ease: 'power1.in' }, 0)
+      .to(textRef.current, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.out' }, 0.15)
+      .to(vignetteRef.current, { opacity: 1, duration: 0.7, ease: 'power2.in' }, 0.4);
   }, []);
 
   return (
     <div ref={containerRef} style={{ height: '100vh', position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
-      <div ref={cityRef} style={{ position: 'absolute', inset: 0, opacity: 0 }}>
-        <svg style={{ width: '100%', height: '100%' }} viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
-          <rect x="100" y="200" width="60" height="400" fill="#1a1a1a" />
-          <rect x="200" y="150" width="80" height="450" fill="#222" />
-          <rect x="350" y="100" width="70" height="500" fill="#1a1a1a" />
-          <rect x="500" y="250" width="50" height="350" fill="#222" />
-          <rect x="600" y="180" width="90" height="420" fill="#1a1a1a" />
-          <rect x="750" y="120" width="60" height="480" fill="#222" />
-          <rect x="850" y="220" width="100" height="380" fill="#1a1a1a" />
-          {/* Windows */}
-          {[110,130,150, 210,230,250,270, 360,380,400, 510, 610,630,650,670, 760,780, 860,880,900,920].map((x, i) => (
-            <rect key={i} x={x} y={250 + i*15 % 200} width="10" height="15" fill="#c9a84c" opacity="0.3" />
-          ))}
-        </svg>
+      <div ref={mediaRef} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
+        {prefersReducedMotion || !inView ? (
+          <img src="/assets/videos/ch7-modern-poster.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          <video autoPlay muted loop playsInline poster="/assets/videos/ch7-modern-poster.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+            <source src="/assets/videos/ch7-modern.webm" type="video/webm" />
+            <source src="/assets/videos/ch7-modern.mp4" type="video/mp4" />
+          </video>
+        )}
       </div>
-      <div ref={textRef} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', textAlign: 'center', opacity: 0 }}>
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: 'clamp(20px,3vw,40px)', color: '#888', letterSpacing: '0.3em' }}>MODERN</p>
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '14px', color: '#555', letterSpacing: '0.1em', marginTop: '12px' }}>PRESENT DAY</p>
+
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,8,8,0.45) 0%, rgba(8,8,8,0.1) 30%, rgba(8,8,8,0.75) 100%)' }} />
+      <div ref={vignetteRef} style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,8,8,0.65) 55%, #080808 100%)', opacity: 0 }} />
+
+      <Silk path="M 6 62 Q 28 40, 50 52 T 94 32" color="#9e1d1d" thickness={2} wind={0.5} opacity={0.5} />
+
+      <div ref={textRef} style={{ position: 'absolute', bottom: '16%', left: '50%', transform: 'translateX(-50%)', textAlign: 'center', zIndex: 5, width: '100%', padding: '36px 24px 24px' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 100% at 50% 50%, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.28) 55%, transparent 80%)', zIndex: -1 }} />
+        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '12px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--color-gold)', marginBottom: '18px', textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
+          Modern · Present Day
+        </p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 'clamp(22px,3.4vw,44px)', fontWeight: 300, lineHeight: 1.35, color: 'var(--color-text-primary)', maxWidth: '720px', margin: '0 auto', textShadow: '0 3px 20px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.9)' }}>
+          The thread doesn't end. It's still being drawn — by you, scrolling.
+        </h2>
       </div>
-      <Silk path="M 10 50 Q 30 30, 60 40 T 90 20" color="#b31b1b" thickness={1.5} wind={0.6} evolution="abstract" />
     </div>
   );
 };

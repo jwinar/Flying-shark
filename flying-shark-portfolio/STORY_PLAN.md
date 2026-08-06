@@ -495,3 +495,50 @@ conflict is out of scope for now.
 each Work entry showing a project screenshot, to replace the removed
 link as the way to preview a project. Noted here so it isn't lost —
 build in a future session, not this one.
+
+## Chapter 7 (Modern): shipped — the last historical chapter is built
+
+`ModernTransition.jsx` rebuilt in place from the original generator
+script's flat SVG skyline placeholder to a real video, following the
+same mediaRef/vignetteRef/textRef pattern as every other chapter
+(useInView lazy-load, `prefers-reduced-motion` poster fallback, GSAP
+pin-scrub for scale/text/vignette). Every chapter is now real video —
+nothing left on placeholder CSS except the epilogue, which was always
+meant to be calmer/unpinned by design.
+
+The clip: a drone descent over a contemporary skyline that drifts from
+warm dusk into full blue-grey night as building lights switch on —
+which happens to be a near-perfect literal match for the chapter's
+color-arc requirement ("cools into the site's living palette") without
+needing any grading. Thread continues its arc at opacity 0.5/thickness
+2 — steadying again after Qing's fraying, foreshadowing (not yet
+literally building) the "thread becomes structural" idea from the red
+thread section for a future pass.
+
+Technical notes:
+- **Watermark removed at the same coordinates as Tang/Silk Road**
+  (`delogo=x=1120:y=548:w=120:h=120`) — third clip in a row where
+  Canva's sparkle icon lands in materially the same screen position.
+  Confirmed clean via a crop-and-check before trusting it, same as
+  always, but this is now a reliable starting guess, not a coincidence.
+- **Boomerang loop, correctly predicted from the source motion**: this
+  clip isn't just a camera move, it's a full lighting-state change
+  (dusk → night), so a crossfade was never going to work — start and
+  end frames don't even remotely match in color. Boomerang plays it
+  forward then reverses it, landing on a perfect loop point (dusk →
+  night → dusk) that also happens to read as an intentional "the city
+  never stops" beat rather than an obviously mechanical loop. Verified
+  seamless via a difference-blend of the seam frames (see rule from
+  Tang/Silk Road) — near-black, i.e. no visible discontinuity.
+- **1920px width, CRF 26/34** (mp4/webm) — first pass at CRF 23 for
+  the mp4 landed at 6.2MB, too heavy per the file-size rule from Silk
+  Road; stepping to CRF 26 dropped it to 3.9MB with no visible quality
+  loss on this content (glass/architecture compresses cleanly, closer
+  to Tang than to Silk Road's sand). webm landed at 2.9MB.
+- Verified end to end with a scripted browser pass: no console errors,
+  scene renders correctly at 1440×900 and 390×844, and
+  `prefers-reduced-motion` correctly renders zero `<video>` elements
+  (poster-only fallback engaged).
+
+Only Chapter 5 (Song–Ming) remains fully unbuilt — no scene file
+exists for it yet.
