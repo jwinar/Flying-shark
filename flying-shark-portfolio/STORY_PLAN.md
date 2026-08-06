@@ -815,3 +815,18 @@ earlier tracks confirmed paused. Zero console errors.
 
 Four chapters plus the epilogue still need a track (Origins, Qin,
 Song-Ming, Modern, and the epilogue itself).
+
+## Fifth audio track: Origins ("Yellow River Dawn")
+
+Same pipeline. Source was consistent throughout its ~6.3 minutes (RMS
+roughly -11 to -17dB, no spikes), so picked the quietest/most spacious
+window (300–352s) to match the "vast, still, ancient" brief rather
+than needing to dodge a loud section this time. Self-crossfaded,
+loudnorm to -20 LUFS, 128kbps mp3. Wired into `LandscapeScene.jsx`
+with `useInViewport` alongside its existing `useInView` (video
+lazy-load). Verified: enabling audio and scrolling to Origins plays
+only its track, all four other tracks confirmed paused, zero console
+errors.
+
+Three chapters plus the epilogue still need a track (Qin, Song-Ming,
+Modern, and the epilogue itself).
