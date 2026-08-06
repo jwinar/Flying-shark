@@ -332,8 +332,43 @@ Chapters 3 (Han/Silk Road), 4 (Tang), and 5 (Song–Ming) remain — Silk
 Road still has its original placeholder CSS content, Tang and Song–Ming
 don't have scene files yet.
 
-**Chapter 4 (Tang): prompt handed over, waiting on the video asset.**
-Chosen to go next out of order (before Chapter 3/Silk Road, which still
-needs its rebuild) since it's the "go bold" chapter. No scene file
-exists yet — will be a new `TangScene.jsx`, not a rebuild-in-place like
-Qin/Origins were.
+**Chapter 4 (Tang): shipped.** New `TangScene.jsx`, positioned after
+Silk Road and before Qing (its correct chronological slot — unlike
+Qing, which is still sitting out of place waiting on Tang/Song–Ming's
+siblings). Thread pushed to its boldest yet (opacity 0.65) for the
+"world comes to Chang'an" peak.
+
+Two things worth recording from this one:
+
+- **The source clip had a persistent sparkle/watermark icon** fixed in
+  the same screen position across every frame (a UI overlay, not scene
+  content — confirmed by cropping the same region at multiple
+  timestamps and seeing it hadn't moved). Removed with ffmpeg's
+  `delogo` filter rather than cropping the frame down, so the full
+  composition survived. Worth checking every future clip for this
+  before processing, not just Tang.
+- **This clip needed a boomerang loop, not a crossfade.** Unlike the
+  first three chapters' subtler motion, Tang's clip is one continuous
+  ~10s dolly from a wide establishing shot to a close-up at the hall
+  entrance — a genuinely different composition at the start vs. the
+  end. A crossfade blend at that scale produced a visible double-
+  exposure ghost, not a clean dissolve. Solved by playing the clip
+  forward then reverse (`reverse` filter + `concat`), which is
+  mathematically guaranteed seamless for any camera move since the
+  reverse always lands exactly back on frame one — confirmed by
+  diffing the actual start/end frames afterward, not just assuming.
+  Costs 2x duration (loop is now ~19s instead of ~10s), acceptable for
+  an ambient background. **Rule going forward**: check whether a clip's
+  motion is subtle (near-static or gentle drift → crossfade loop is
+  fine) or a large continuous move (→ needs boomerang) before picking
+  a technique, rather than defaulting to crossfade every time.
+
+**Performance note escalating from "known follow-up" to a real
+priority**: with 5 videos now mounted simultaneously from page load,
+autoplay/pause behavior between chapters got visibly less predictable
+in testing (videos scrolled far off-screen sometimes stayed paused at
+timestamp 0 until actually scrolled to, confirmed harmless once
+verified against the real element rather than a stale scroll-distance
+assumption, but the underlying "all videos load immediately regardless
+of position" issue is real and will only get noisier at 7-8 chapters).
+Should be addressed before adding Song–Ming and rebuilding Silk Road.

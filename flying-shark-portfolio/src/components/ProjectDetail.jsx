@@ -5,6 +5,7 @@ import GateScene from './scenes/GateScene';
 import LandscapeScene from './scenes/LandscapeScene';
 import QinScene from './scenes/QinScene';
 import SilkRoadScene from './scenes/SilkRoadScene';
+import TangScene from './scenes/TangScene';
 import QingScene from './scenes/QingScene';
 import ModernTransition from './scenes/ModernTransition';
 import RedThreadScene from './scenes/RedThreadScene';
@@ -29,6 +30,7 @@ const ProjectDetail = () => {
       <LandscapeScene />
       <QinScene />
       <SilkRoadScene />
+      <TangScene />
       <QingScene />
       <ModernTransition />
       <RedThreadScene />
