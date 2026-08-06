@@ -206,10 +206,10 @@ page:
 toggle button that controls zero actual tracks would ship a dead
 control on the live site. Wiring happens once the first real track
 exists, same asset-then-code sequencing as every video chapter.
-**Next step**: waiting on tool preference (Suno/Udio for AI-generated,
-or a royalty-free library) and the first track — proposing to start
-with the Gate/opening scene to validate the full pipeline end-to-end
-before generating all eight.
+**Next step**: tool preference confirmed — **Suno/Udio**. Still
+proposing to start with the Gate/opening scene to validate the full
+pipeline end-to-end (prompt, generation, trim/loop, wiring) before
+generating all eight tracks.
 
 ## Cinematic-language toolkit ("feel like a movie," concretely)
 
@@ -461,3 +461,37 @@ Two things worth recording:
   3.5MB without a visible quality loss. **Rule added**: check the
   actual output file size before shipping, not just the visual crop —
   a recipe tuned on one clip's content isn't guaranteed to transfer.
+
+## Fixed: case-study navigation crashing the page ("broken cursor")
+
+User report: clicking into a project from Selected Work left the
+cursor broken. Reproduced with a scripted browser session rather than
+guessing from the symptom, and the real failure was a React crash, not
+a cursor bug: `NotFoundError: Failed to execute 'removeChild' on
+'Node'`, thrown when the route switched from the historical-intro
+branch to `ProjectCaseStudy`.
+
+Root cause: GSAP ScrollTrigger's `pin:true` wraps every pinned scene
+(Gate, Landscape, Qin, Silk Road, Tang, Qing, Modern, plus the
+red-thread epilogue) in a synthetic "pin-spacer" wrapper it inserts
+into the DOM directly — outside React's tracking. Routing to a case
+study unmounts all of those pinned scenes in one shot; React's
+recorded parent-child structure no longer matches what GSAP actually
+built, and `removeChild` fails partway through, leaving the page torn
+down (visually: the custom cursor stops updating, because the app
+crashed under it).
+
+**Fix applied, per direction**: removed project navigation entirely
+rather than patching the unmount conflict. `PortfolioWork.jsx` no
+longer wraps entries in `<Link>` — clicking a project is now inert.
+Verified with a scripted click on the Work section: no URL change, no
+console errors. The `/projects/:id` route and `ProjectCaseStudy` still
+exist and would still crash if reached directly (bookmark, back/
+forward, manual URL) — that path is just no longer reachable through
+normal site navigation. A real fix for the underlying pin/unmount
+conflict is out of scope for now.
+
+**Explicitly deferred, not built yet**: an expandable hover bar on
+each Work entry showing a project screenshot, to replace the removed
+link as the way to preview a project. Noted here so it isn't lost —
+build in a future session, not this one.
