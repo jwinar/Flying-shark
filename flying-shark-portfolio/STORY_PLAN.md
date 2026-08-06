@@ -188,6 +188,29 @@ autoplays with sound. Concretely:
 - Treat as a **later phase** — get the visuals and thread working first;
   audio is additive polish, not a blocker for chapters shipping.
 
+**Status: infrastructure built, not wired in yet.** With Silk Road shipped
+(every chapter now has real video, no placeholders left), this is the
+right moment to start. Built and committed, not yet mounted on the live
+page:
+- `useAmbientAudio.js` — a context provider holding the global on/off
+  state, persisted to localStorage so the visitor's choice survives a
+  reload.
+- `AmbientTrack.jsx` — per-scene component: takes a track `src` and the
+  scene's existing `inView` state (reusing the same hook chapters
+  already use for video lazy-loading), plays only when both the global
+  toggle is on *and* the scene is actually in view, with a GSAP volume
+  fade rather than an abrupt cut.
+- `AudioToggle.jsx` — the floating speaker-icon button.
+
+**Deliberately not wired into `ProjectDetail.jsx` yet**: mounting a
+toggle button that controls zero actual tracks would ship a dead
+control on the live site. Wiring happens once the first real track
+exists, same asset-then-code sequencing as every video chapter.
+**Next step**: waiting on tool preference (Suno/Udio for AI-generated,
+or a royalty-free library) and the first track — proposing to start
+with the Gate/opening scene to validate the full pipeline end-to-end
+before generating all eight.
+
 ## Cinematic-language toolkit ("feel like a movie," concretely)
 
 Techniques that read as "film," not "web page," regardless of the specific
