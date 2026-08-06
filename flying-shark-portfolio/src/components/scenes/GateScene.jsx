@@ -2,6 +2,8 @@ import { useRef } from 'react';
 import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { useInViewport } from '../../hooks/useInViewport';
+import AmbientTrack from '../cinematic/AmbientTrack';
 
 const GateScene = () => {
   const containerRef = useRef(null);
@@ -9,6 +11,7 @@ const GateScene = () => {
   const vignetteRef = useRef(null);
   const titleRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
+  const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -50,6 +53,8 @@ const GateScene = () => {
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,6vw,80px)', color: '#f5efe3', letterSpacing: '0.08em', fontWeight: 300, textShadow: '0 4px 24px rgba(0,0,0,0.7)' }}>CHINA / 5000 YEARS</h1>
         <p style={{ fontFamily: 'var(--font-ui)', fontSize: '14px', color: '#d8cdb8', letterSpacing: '0.2em', textTransform: 'uppercase', textShadow: '0 2px 12px rgba(0,0,0,0.7)' }}>SCROLL TO ENTER</p>
       </div>
+
+      <AmbientTrack src="/assets/audio/opening-wall-ambient.mp3" inView={inViewport} volume={0.35} />
     </div>
   );
 };

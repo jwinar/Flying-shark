@@ -18,6 +18,7 @@ import PortfolioContact from './portfolio/PortfolioContact';
 import PortfolioFooter from './portfolio/PortfolioFooter';
 import PortfolioNavigation from './portfolio/PortfolioNavigation';
 import ProjectCaseStudy from './ProjectCaseStudy';
+import AudioToggle from './cinematic/AudioToggle';
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ const ProjectDetail = () => {
   return (
     <>
       <Cursor />
+      <AudioToggle />
       <GateScene />
       <LandscapeScene />
       <QinScene />

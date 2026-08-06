@@ -542,3 +542,60 @@ Technical notes:
 
 Only Chapter 5 (Song–Ming) remains fully unbuilt — no scene file
 exists for it yet.
+
+## Audio: first track shipped, pipeline validated end-to-end
+
+First Suno track ("Dawn Over Ancient Stone") delivered and wired into
+the Gate scene, validating the full pipeline the earlier infrastructure
+was built for. Concretely:
+
+- **Trimmed and looped.** Source was a 4.7-minute full generation, not
+  a short loop — sampled a steady 52s window from the mid-section
+  (avoided both the busier melodic intro and a loud swell near the
+  tail, found by scanning RMS/peak levels across the track rather than
+  guessing). Made it loop seamlessly the same way the videos do:
+  self-crossfade, blending the tail 3s into the head 3s so the native
+  `<audio loop>` restart lands on already-blended material instead of
+  a hard cut. Verified by concatenating two copies and inspecting the
+  waveform at the seam — continuous, no gap or click.
+- **Loudness normalized** (`loudnorm`, -20 LUFS target) and encoded to
+  a single 128kbps mp3 (~785KB for 49s) — one file is enough here,
+  unlike video's mp4-and-webm requirement, since browser mp3 support
+  doesn't have an equivalent codec gap.
+- **Wired**: `App.jsx` now wraps the router in `AmbientAudioProvider`;
+  `AudioToggle` mounts once in `ProjectDetail`'s historical-scenes
+  branch; `GateScene` renders an `AmbientTrack` pointed at the new
+  file.
+
+**Real bug found and fixed while wiring this up** — the same failure
+mode as the original Gate lazy-loading race, in a new hook. `AmbientTrack`
+needs to know when its scene scrolls in and out of view (not just once,
+like the video lazy-load hook — audio has to fade back out when you
+scroll away), so it needed a new bidirectional hook, `useInViewport`.
+First version observed with `IntersectionObserver` and trusted
+`entry.isIntersecting` directly — and hit the identical race documented
+under the Wall/lazy-loading fix: for a scene that's already on screen
+at mount with no scroll having happened yet, the observer's first
+callback reported `isIntersecting: false` in this environment, and
+nothing ever nudged it to recheck, so the audio toggle looked broken
+(enabled state flipped, `aria-pressed` correct, but the `<audio>`
+element stayed paused at volume 0 no matter how long you waited).
+Confirmed with a scripted reproduction that polled the audio element's
+actual `paused`/`volume` state after enabling — stayed stuck, never
+once played.
+
+Root cause this time was narrower than "trust the wrong first value":
+even seeding state with a synchronous `getBoundingClientRect()` check
+before attaching the observer wasn't enough, because the observer's
+own first callback fired shortly after and overwrote the correct value
+with its incorrect one. **Fix**: stopped trusting `entry.isIntersecting`
+from the callback at all — the observer is now used purely as a signal
+that something changed (scroll, resize), and the actual boolean is
+always derived from a fresh `getBoundingClientRect()` measurement taken
+at callback time. Verified with the same scripted approach: audio now
+reliably fades in on enable, and fades out + pauses a few chapters
+later once scrolled out of the Gate scene's viewport.
+
+**Next step**: six chapters plus the epilogue still have no track.
+Same one-clip-at-a-time approach as the videos — generate, hand over,
+I trim/loop/wire — rather than committing to all eight up front.
