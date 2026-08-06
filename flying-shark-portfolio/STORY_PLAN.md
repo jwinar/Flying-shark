@@ -759,3 +759,43 @@ alongside the existing `useInView` used for video lazy-load). Verified
 the three-track handoff works correctly at Silk Road specifically.
 
 Four chapters plus the epilogue still need a track.
+
+## Work section: hover-reveal preview, structure built (content pending)
+
+Started the feature explicitly deferred earlier: hovering a project in
+Selected Work now expands an "extended bar" beneath the description,
+revealing two placeholder screenshot tiles, instead of the removed
+navigation link. New `WorkItem.jsx` component (`PortfolioWork.jsx` now
+maps `projects` through it rather than inlining each row).
+
+- **Animation**: GSAP tween on `mouseenter`/`mouseleave` — height
+  0 → natural content height, opacity 0 → 1, `marginTop` 0 → 24px, so
+  the row visibly grows to make room rather than overlaying anything.
+  Reverses on leave. No route change, no DOM the router or GSAP
+  ScrollTrigger's pin-spacer mechanism touches — this sidesteps the
+  removeChild crash class entirely rather than working around it.
+- **Real bug hit and fixed**: the preview tiles use `aspect-ratio` to
+  size themselves from width alone (no real screenshots yet), but the
+  container is a flex row, and flex's default `align-items: stretch`
+  was forcing the tiles to the container's *collapsed* 0px height,
+  overriding their aspect-ratio — so `scrollHeight` measured ~2px
+  instead of the ~340px the tiles actually need, and the GSAP tween
+  animated to that wrong (nearly invisible) height. Confirmed via
+  direct computed-style inspection, not guessing. Fixed with
+  `alignItems: 'flex-start'` on the container so children size
+  themselves independently of the collapsed parent.
+- **Touch guard**: gated both handlers behind
+  `window.matchMedia('(hover: hover)').matches` so touch devices (no
+  real hover concept, and no reliable mouseleave) can't get the panel
+  stuck open — mobile keeps the plain text-only row.
+- **Placeholders, not broken images**: no project screenshots exist
+  yet, so each tile is a styled gradient card reading "Preview coming
+  soon" rather than an empty box or a missing-image icon. Swapping in
+  real screenshots later is a one-line change once they exist.
+- Verified with a scripted pass: hover on multiple rows (not just the
+  first), leave-to-collapse, a hover-then-click still doesn't navigate
+  anywhere, mobile viewport with touch emulation shows no hover panel
+  at all — zero console errors throughout.
+
+**Explicitly not done yet, per direction**: real screenshots and any
+copy changes — "we will figure out what to fill in the text after."
