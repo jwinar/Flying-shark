@@ -704,3 +704,58 @@ confirmed Gate faded out and Tang faded in; scrolled past Tang to
 Qing, confirmed both tracks paused at volume 0. Zero console errors.
 
 Five chapters plus the epilogue still need a track.
+
+## Fixed: three chapters were visibly softer than the rest
+
+User flagged that some chapters looked lower quality than others. Rather
+than guess which, checked every shipped video's actual resolution and
+bitrate, then cross-referenced against each scene's GSAP zoom to compute
+the real on-screen stretch factor (native width vs. a 1920px viewport,
+times the zoom scale) — the same root-cause math behind the original
+Wall fix. Three chapters were still on their original pre-Wall-fix
+encodes, all upscaled well past 1.6x on a typical screen:
+
+- **Origins (ch1)**: native 1366px, zoom 1.18x → ~1.66x stretch.
+- **Qin (ch2)**: native 1366px, zoom 1.15x → ~1.62x stretch, plus a
+  low original bitrate (~1Mbps) compounding it.
+- **Tang (ch4)**: native 1280px, zoom 1.15x → ~1.73x stretch — almost
+  exactly the Wall's original ratio.
+
+Confirmed with real-browser screenshots at 1920×1080 (not just raw
+frame inspection) before touching anything, comparing fine detail
+(water ripples, armor edges, banner embroidery) against an already-fixed
+chapter (Silk Road) at the same viewport size. All three were visibly
+soft by that comparison; re-verified after the fix the same way.
+
+The original source clips were still available from earlier in this
+conversation, so re-ran each through the now-standard pipeline instead
+of just re-compressing the already-encoded (lossy) shipped files:
+1920px lanczos upscale + light unsharp, same loop technique each
+chapter already used (Origins and Qin: self-crossfade — near-static
+water/smoke, no watermark on either raw source; Tang: boomerang — a
+large continuous push-in, matching its original build notes; also
+needed a delogo pass at the standard coordinates). One tuning note:
+water/mist and fine-armor texture inflate file size much faster than
+architectural content at a given CRF, so Origins and Qin needed a
+higher CRF (27–30) than the standard 21–24 to land at a reasonable
+size — another instance of the "recipe doesn't transfer across content
+types" rule from the Silk Road writeup. Final sizes: Origins 1.6MB/3MB,
+Qin 1.9MB/1.2MB, Tang 5MB/6.7MB (mp4/webm).
+
+Verified with real-browser screenshots again post-fix (crisp water
+ripples, armor edges, banner embroidery, roof tile detail all
+recovered) plus mobile and `prefers-reduced-motion` passes — zero
+console errors. Silk Road, Song-Ming, Modern, and the (fixed) Wall
+opening were already on the correct standard and untouched.
+
+## Third audio track: Silk Road ("Distant Caravan Bells")
+
+Same pipeline as Gate and Tang: scanned levels across the full track
+(fairly consistent throughout, RMS -12 to -16dB), picked the sparsest
+52s window to match the brief's "vast and lonely, more negative space"
+direction, self-crossfaded the seam, loudnorm to -20 LUFS, 128kbps mp3.
+Wired into `SilkRoadScene.jsx` the same way as Tang (`useInViewport`
+alongside the existing `useInView` used for video lazy-load). Verified
+the three-track handoff works correctly at Silk Road specifically.
+
+Four chapters plus the epilogue still need a track.

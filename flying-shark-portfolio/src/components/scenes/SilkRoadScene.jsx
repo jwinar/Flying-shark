@@ -3,7 +3,9 @@ import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useInView } from '../../hooks/useInView';
+import { useInViewport } from '../../hooks/useInViewport';
 import Silk from '../cinematic/Silk';
+import AmbientTrack from '../cinematic/AmbientTrack';
 
 const SilkRoadScene = () => {
   const containerRef = useRef(null);
@@ -13,6 +15,7 @@ const SilkRoadScene = () => {
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
+  const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
     gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
@@ -63,6 +66,8 @@ const SilkRoadScene = () => {
           The thread leaves China for the first time.
         </h3>
       </div>
+
+      <AmbientTrack src="/assets/audio/silkroad-ambient.mp3" inView={inViewport} volume={0.35} />
     </div>
   );
 };
