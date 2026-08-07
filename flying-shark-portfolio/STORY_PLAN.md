@@ -889,3 +889,42 @@ the intended crossfade overlaps at every boundary. Mobile and
 
 One chapter plus the epilogue still need a track (Modern, and the
 epilogue itself).
+
+## Eighth audio track: Modern ("softarrival") — and a loop-seam rule
+
+Same pipeline, but this track exposed a flaw in how windows were being
+chosen, and it's the most useful thing recorded in this section.
+
+**Both ends were unusable**: a fade-in (-40.9dB over the first 3s) and
+a hard fade to *digital silence* (-97.3dB over the last 3s) — the
+Song-Ming lesson repeating, more extreme. Middle was very consistent
+(-12 to -18dB from t=10 to ~145), so there was plenty of safe range.
+
+**The real find**: the first attempt (60–112s) passed every check used
+up to now except the numeric seam check, which came back **8.7dB
+mismatched** (loop tail -23.1dB vs. head -14.4dB) — the loop would
+have audibly swelled on every restart. Diagnosing *why* exposed
+something true of this recipe all along: because the crossfade blends
+the tail into the *head*, the last moment of the loop is head content
+at ~3s in, and the restart jumps back to head content at 0s. So what
+actually has to be level-flat is **the first ~3 seconds of the chosen
+window**, not the window as a whole. A window can sit in a perfectly
+consistent stretch and still loop badly if its own opening 3s ramps.
+
+**Fix**: scanned candidate start points across the safe range,
+comparing RMS(t..t+1) against RMS(t+2..t+3), and picked the flattest
+head (t=84, 0.5dB internal). Reran: seam mismatch dropped 8.7dB → 2.7dB,
+tighter than the already-shipped and fine-sounding Origins track
+(3.9dB). No clipping (peak -13.2dB).
+
+**Rule added**: choose a window by the flatness of its first 3 seconds,
+not just by avoiding loud/quiet sections — and always confirm with the
+numeric head/tail RMS check, which is the only check that caught this.
+
+Wired into `ModernTransition.jsx`. Full scroll sweep confirms Modern
+fills the last silent stretch: **ambient audio is now continuous across
+the entire historical intro**, Gate through Modern, with crossfade
+overlaps at every boundary. Mobile and `prefers-reduced-motion` clean,
+zero console errors.
+
+Only the epilogue (`RedThreadScene`) still has no track.

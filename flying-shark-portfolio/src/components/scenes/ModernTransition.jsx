@@ -3,7 +3,9 @@ import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useInView } from '../../hooks/useInView';
+import { useInViewport } from '../../hooks/useInViewport';
 import Silk from '../cinematic/Silk';
+import AmbientTrack from '../cinematic/AmbientTrack';
 
 const ModernTransition = () => {
   const containerRef = useRef(null);
@@ -13,6 +15,7 @@ const ModernTransition = () => {
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
+  const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
     gsap.set(charRef.current, { opacity: 0, scale: 0.85 });
@@ -63,6 +66,8 @@ const ModernTransition = () => {
           The thread doesn't end. It's still being drawn — by you, scrolling.
         </h2>
       </div>
+
+      <AmbientTrack src="/assets/audio/modern-ambient.mp3" inView={inViewport} volume={0.35} />
     </div>
   );
 };
