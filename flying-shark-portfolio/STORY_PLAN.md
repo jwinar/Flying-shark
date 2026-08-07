@@ -863,3 +863,29 @@ only silent stretches are exactly the chapters with no track yet.
 
 Two chapters plus the epilogue still need a track (Song-Ming, Modern,
 and the epilogue itself).
+
+## Seventh audio track: Song–Ming ("silentink")
+
+Same pipeline, with one new hazard worth recording. This source was
+much shorter than the others (123s vs. the usual 150–380s) and — unlike
+every previous track — **ends with a fade-out to near-silence**
+(last 3s at -48.9dB). Looping a window that included that tail would
+have produced an audible dropout every cycle. Caught it by checking
+head and tail levels explicitly before choosing a window, which is
+now worth doing on every track rather than only scanning the middle.
+Used 20–72s: clear of both the soft start and the fade-out.
+
+Wide RMS swings across the track (-13 to -26dB) are intrinsic to the
+sparse-guqin brief (struck notes with long silences), not a problem to
+engineer around — the same lesson as Qin. Applied the Qin rule and
+verified the seam numerically rather than by eye: last second -23.3dB
+vs. first second -22.5dB, a 0.8dB match. No clipping (peak -17.3dB).
+
+Wired into `SongMingScene.jsx`. Verified with the full scroll sweep
+(also per the Qin rule): Song-Ming now fills what was a silent gap at
+~9600px, and ambient audio is continuous from Gate through Qing with
+the intended crossfade overlaps at every boundary. Mobile and
+`prefers-reduced-motion` clean, zero console errors.
+
+One chapter plus the epilogue still need a track (Modern, and the
+epilogue itself).
