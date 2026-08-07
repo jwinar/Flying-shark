@@ -928,3 +928,45 @@ overlaps at every boundary. Mobile and `prefers-reduced-motion` clean,
 zero console errors.
 
 Only the epilogue (`RedThreadScene`) still has no track.
+
+## Ninth audio track: Epilogue ("theredthread") — audio is COMPLETE
+
+Final track. Source again ended in digital silence (-89dB) — third in a
+row, so a fade-out tail should now be assumed rather than checked for
+hopefully. Located the cut precisely (material live to ~104s, then
+abrupt) and kept well clear.
+
+**Refined the seam methodology again.** The Modern flat-head rule
+picked t=46 (0.3dB head flatness), but the finished loop still measured
+9.0dB mismatched on the 1-second head/tail check. Two findings:
+
+1. **The 1-second check is biased.** The last second of the loop still
+   sits inside the 3s crossfade ramp, where output is a partial mix, so
+   it reads systematically quieter than the material actually is at the
+   junction. Re-measured at **0.3s**, much closer to the real splice
+   point, and calibrated against already-shipped tracks: Tang 0.1dB,
+   Modern 1.4dB, Qing 5.8dB, Origins 6.2dB. That gives a real baseline
+   — anything at or under ~6dB matches tracks already shipping and
+   sounding fine.
+2. **Flat-head is a good heuristic, not a guarantee.** For material
+   this sparse (a held tone with long gaps) it didn't predict the
+   outcome well. Faster and more reliable to just *build the candidate
+   loops and measure them*: swept six start points, built each, and
+   measured the 0.3s seam. Spread was large (4.4dB to 15.4dB) — t=30
+   won at **4.4dB**, better than shipped Qing and Origins. Cheap to do
+   and removes the guesswork entirely.
+
+**Rule (supersedes the Modern rule)**: measure the seam at 0.3s, not
+1s; use flat-head only to pick candidates, then build several and pick
+the best measured. No clipping (peak -18.6dB).
+
+Wired into `RedThreadScene.jsx` at a slightly lower volume (0.3 vs the
+0.35 used elsewhere) — it's the quiet exhale before the portfolio, and
+the scene is unpinned/calmer by design.
+
+**Ambient audio is now complete for the whole film.** Full sweep
+confirms an unbroken chain with crossfade overlaps at every boundary:
+Gate → Origins → Qin → Silk Road → Tang → Song-Ming → Qing → Modern →
+Epilogue, then silence once the portfolio begins — which is the correct
+ending, not a gap. Mobile and `prefers-reduced-motion` clean, zero
+console errors.

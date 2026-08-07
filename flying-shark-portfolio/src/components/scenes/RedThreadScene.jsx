@@ -3,12 +3,15 @@ import { useGSAP } from '../../hooks/useGSAP';
 import { gsap } from '../../animations/core/gsap';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useInView } from '../../hooks/useInView';
+import { useInViewport } from '../../hooks/useInViewport';
+import AmbientTrack from '../cinematic/AmbientTrack';
 
 const RedThreadScene = () => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
+  const inViewport = useInViewport(containerRef);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -56,6 +59,8 @@ const RedThreadScene = () => {
           The line you've followed through every era on this page is that thread. Scroll on — it leads here.
         </p>
       </div>
+
+      <AmbientTrack src="/assets/audio/epilogue-ambient.mp3" inView={inViewport} volume={0.3} />
     </div>
   );
 };
