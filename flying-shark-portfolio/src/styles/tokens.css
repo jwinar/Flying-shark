@@ -1,1 +1,34 @@
 :root { --color-bg:#080808; --color-surface:#111; --color-text-primary:#f0f0f0; --color-text-secondary:#888; --color-text-muted:#444; --color-red:#9e1d1d; --color-gold:#c9a84c; --font-display:Georgia,'Times New Roman',serif; --font-ui:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+
+/* Portfolio-half redesign scope — "The Arrivals Board". Read-only for the
+   intro scenes; do not let these leak into :root. See PORTFOLIO_REDESIGN_PLAN.md. */
+.portfolio-world {
+  --pf-ground: #e9e3d5;
+  --pf-panel: #f4efe4;
+  --pf-panel-raised: #faf7ef;
+  --pf-ink: #221d17;
+  --pf-ink-soft: #5f5647;
+  --pf-line: #cdc3ad;
+  --pf-amber: #c97a1f;   /* most-recent / highlighted */
+  --pf-amber-ink: #8f570f;
+  --pf-teal: #12695a;    /* settled */
+  --pf-teal-ink: #0c4a3f;
+  --pf-crimson: #a92c26; /* contact / alert */
+  --pf-crimson-ink: #7c1f1b;
+  --pf-display: 'Big Shoulders', 'Arial Narrow', sans-serif;
+  --pf-body: 'Work Sans', var(--font-ui);
+
+  /* Depth: offset + blur, ink-tinted — never a zero-offset halo. Larger
+     surfaces read thicker (heavier blur + deeper reach) per materials weight. */
+  --pf-shadow-chip: 0 1px 2px rgba(34,20,10,0.10);
+  --pf-shadow-row: 0 1px 2px rgba(34,20,10,0.05), 0 6px 16px -8px rgba(34,20,10,0.14);
+  --pf-shadow-panel: 0 2px 4px rgba(34,20,10,0.06), 0 16px 40px -16px rgba(34,20,10,0.20);
+
+  /* Motion — the one authored moment (board-tile flip-in) and shared UI feel. */
+  --pf-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --pf-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --pf-press: transform 160ms ease-out;
+
+  background: var(--pf-ground);
+  color: var(--pf-ink);
+}

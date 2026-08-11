@@ -6,9 +6,9 @@ const inputStyle = {
   width: '100%',
   background: 'transparent',
   border: 'none',
-  borderBottom: '1px solid var(--color-text-muted)',
-  color: 'var(--color-text-primary)',
-  fontFamily: 'var(--font-ui)',
+  borderBottom: '1px solid var(--pf-line)',
+  color: 'var(--pf-ink)',
+  fontFamily: 'var(--pf-body)',
   fontSize: '16px',
   padding: '10px 2px',
   outline: 'none',
@@ -16,11 +16,12 @@ const inputStyle = {
 
 const labelStyle = {
   display: 'block',
-  fontFamily: 'var(--font-ui)',
+  fontFamily: 'var(--pf-body)',
   fontSize: '11px',
-  letterSpacing: '0.15em',
+  fontWeight: 700,
+  letterSpacing: '0.12em',
   textTransform: 'uppercase',
-  color: 'var(--color-text-muted)',
+  color: 'var(--pf-ink-soft)',
   marginBottom: '6px',
 };
 
@@ -69,7 +70,7 @@ const ContactForm = () => {
 
   if (status === 'success') {
     return (
-      <p style={{ fontFamily: 'var(--font-ui)', fontSize: '16px', color: 'var(--color-gold)', textAlign: 'center', padding: '40px 0' }}>
+      <p style={{ fontFamily: 'var(--pf-body)', fontSize: '16px', fontWeight: 600, color: 'var(--pf-teal-ink)', textAlign: 'center', padding: '40px 0' }}>
         Message sent — thanks for reaching out. I’ll reply as soon as I can.
       </p>
     );
@@ -91,30 +92,14 @@ const ContactForm = () => {
 
       <div>
         <label style={labelStyle} htmlFor="contact-message">Message</label>
-        <textarea id="contact-message" name="message" required rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'var(--font-ui)' }} />
+        <textarea id="contact-message" name="message" required rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'var(--pf-body)' }} />
       </div>
 
       {status === 'error' && (
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '13px', color: '#d97070' }}>{errorMsg}</p>
+        <p style={{ fontFamily: 'var(--pf-body)', fontSize: '13px', color: 'var(--pf-crimson-ink)' }}>{errorMsg}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'sending'}
-        style={{
-          alignSelf: 'flex-start',
-          background: 'transparent',
-          border: '1px solid var(--color-gold)',
-          color: 'var(--color-gold)',
-          fontFamily: 'var(--font-ui)',
-          fontSize: '12px',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          padding: '12px 28px',
-          cursor: status === 'sending' ? 'default' : 'pointer',
-          opacity: status === 'sending' ? 0.6 : 1,
-        }}
-      >
+      <button type="submit" disabled={status === 'sending'} className="pf-btn pf-btn--solid pf-pressable" style={{ alignSelf: 'flex-start' }}>
         {status === 'sending' ? 'Sending…' : 'Send Message'}
       </button>
     </form>

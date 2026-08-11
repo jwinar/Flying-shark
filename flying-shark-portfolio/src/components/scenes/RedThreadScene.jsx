@@ -11,7 +11,7 @@ const RedThreadScene = () => {
   const textRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const inView = useInView(containerRef);
-  const inViewport = useInViewport(containerRef);
+  const inViewport = useInViewport(containerRef, { persistPastBottom: true });
 
   useGSAP(() => {
     gsap.fromTo(
