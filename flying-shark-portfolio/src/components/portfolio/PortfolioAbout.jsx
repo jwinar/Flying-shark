@@ -1,17 +1,30 @@
+import { useRef } from 'react';
+import { useGSAP } from '../../hooks/useGSAP';
+import { flipInReveal } from '../../animations/portfolioReveal';
 import { personal } from '../../data/personal';
+
 const PortfolioAbout = () => {
+  const ref = useRef(null);
+  useGSAP(() => {
+    flipInReveal('.pf-about-reveal', { trigger: ref.current, start: 'top 80%' });
+  }, []);
+
   return (
-    <div style={{ padding: '80px 40px' }}>
-      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,4vw,48px)', fontWeight: 300, marginBottom: '48px', maxWidth: '900px', margin: '0 auto 48px' }}>About</h2>
-      <div className="about-grid">
-        <div style={{ borderLeft: '2px solid var(--color-gold)', paddingLeft: '20px', maxWidth: '220px' }}>
-          <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '20px', lineHeight: 1.5, color: 'var(--color-text-primary)' }}>
-            “{personal.tagline}”
+    <div ref={ref} className="pf-section">
+      <div className="pf-section-inner" style={{ maxWidth: '900px' }}>
+        <h2 className="pf-about-reveal pf-heading" style={{ fontSize: 'clamp(32px,4vw,48px)', marginBottom: '40px' }}>
+          About
+        </h2>
+        <div className="about-grid">
+          <div className="pf-about-reveal pf-stamp" style={{ maxWidth: '270px' }}>
+            <p style={{ fontFamily: 'var(--pf-display)', fontWeight: 700, fontSize: '21px', lineHeight: 1.35, color: 'var(--pf-ink)' }}>
+              “{personal.tagline}”
+            </p>
+          </div>
+          <p className="pf-about-reveal pf-prose" style={{ fontSize: '18px' }}>
+            {personal.about}
           </p>
         </div>
-        <p style={{ fontFamily: 'var(--font-ui)', fontSize: '18px', lineHeight: 1.8, color: 'var(--color-text-secondary)' }}>
-          {personal.about}
-        </p>
       </div>
     </div>
   );

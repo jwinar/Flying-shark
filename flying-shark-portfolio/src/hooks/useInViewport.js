@@ -1,23 +1,34 @@
 import { useEffect, useState } from 'react';
+import { gsap } from '../animations/core/gsap';
 
-export const useInViewport = (ref, rootMargin = '0px') => {
+// Polls on gsap's ticker (the same per-frame clock driving Lenis + ScrollTrigger)
+// instead of IntersectionObserver. A pinned scene toggles `position: fixed` on
+// entry/exit outside React's render cycle, and IntersectionObserver's coalesced,
+// threshold-crossing callbacks can miss that transition depending on scroll
+// direction/speed; a fresh getBoundingClientRect() every frame can't.
+export const useInViewport = (ref, { persistPastBottom = false } = {}) => {
   const [inViewport, setInViewport] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const measure = () => {
+    let current = null;
+    const check = () => {
       const rect = el.getBoundingClientRect();
-      return rect.bottom > 0 && rect.top < window.innerHeight;
+      const next = persistPastBottom
+        ? rect.top < window.innerHeight
+        : rect.bottom > 0 && rect.top < window.innerHeight;
+      if (next !== current) {
+        current = next;
+        setInViewport(next);
+      }
     };
 
-    setInViewport(measure());
-
-    const observer = new IntersectionObserver(() => setInViewport(measure()), { rootMargin, threshold: 0 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [ref, rootMargin]);
+    check();
+    gsap.ticker.add(check);
+    return () => gsap.ticker.remove(check);
+  }, [ref, persistPastBottom]);
 
   return inViewport;
 };

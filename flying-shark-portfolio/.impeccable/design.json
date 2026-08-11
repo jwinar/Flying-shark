@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-11T00:00:00Z",
+  "title": "Design System: The Arrivals Board",
+  "extensions": {
+    "colorMeta": {
+      "ground": { "role": "neutral", "displayName": "Pale Stone", "canonical": "#e9e3d5", "tonalRamp": ["oklch(18% 0.01 80)", "oklch(30% 0.015 80)", "oklch(42% 0.015 80)", "oklch(54% 0.015 80)", "oklch(66% 0.02 80)", "oklch(78% 0.02 80)", "oklch(88% 0.02 80)", "oklch(95% 0.015 85)"] },
+      "panel": { "role": "neutral", "displayName": "Warm Chalk", "canonical": "#f4efe4", "tonalRamp": ["oklch(18% 0.01 75)", "oklch(30% 0.012 75)", "oklch(42% 0.012 75)", "oklch(54% 0.012 75)", "oklch(66% 0.015 75)", "oklch(80% 0.015 75)", "oklch(90% 0.012 80)", "oklch(96% 0.01 85)"] },
+      "panel-raised": { "role": "neutral", "displayName": "Bone White", "canonical": "#faf7ef", "tonalRamp": ["oklch(20% 0.008 80)", "oklch(32% 0.01 80)", "oklch(44% 0.01 80)", "oklch(56% 0.01 80)", "oklch(68% 0.012 80)", "oklch(82% 0.012 80)", "oklch(92% 0.01 85)", "oklch(97% 0.008 90)"] },
+      "ink": { "role": "neutral", "displayName": "Warm Charcoal Ink", "canonical": "#221d17", "tonalRamp": ["oklch(15% 0.015 55)", "oklch(24% 0.02 55)", "oklch(33% 0.025 55)", "oklch(43% 0.025 55)", "oklch(54% 0.025 55)", "oklch(66% 0.02 60)", "oklch(80% 0.015 65)", "oklch(92% 0.01 70)"] },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Umber", "canonical": "#5f5647", "tonalRamp": ["oklch(18% 0.02 60)", "oklch(28% 0.025 60)", "oklch(38% 0.03 60)", "oklch(48% 0.03 60)", "oklch(58% 0.028 60)", "oklch(68% 0.025 65)", "oklch(80% 0.02 70)", "oklch(90% 0.012 75)"] },
+      "line": { "role": "neutral", "displayName": "Weathered Line", "canonical": "#cdc3ad", "tonalRamp": ["oklch(20% 0.015 75)", "oklch(32% 0.018 75)", "oklch(44% 0.02 75)", "oklch(56% 0.02 75)", "oklch(68% 0.02 75)", "oklch(78% 0.02 78)", "oklch(85% 0.018 80)", "oklch(93% 0.012 85)"] },
+      "amber": { "role": "primary", "displayName": "Departures Amber", "canonical": "#c97a1f", "tonalRamp": ["oklch(15% 0.04 55)", "oklch(25% 0.07 55)", "oklch(35% 0.1 55)", "oklch(45% 0.13 55)", "oklch(55% 0.15 55)", "oklch(65% 0.15 58)", "oklch(78% 0.12 62)", "oklch(90% 0.06 68)"] },
+      "amber-ink": { "role": "primary", "displayName": "Amber Ink", "canonical": "#8f570f", "tonalRamp": ["oklch(12% 0.03 50)", "oklch(20% 0.05 50)", "oklch(28% 0.08 50)", "oklch(36% 0.1 52)", "oklch(45% 0.11 52)", "oklch(56% 0.11 55)", "oklch(70% 0.09 58)", "oklch(85% 0.05 62)"] },
+      "teal": { "role": "secondary", "displayName": "Settled Teal", "canonical": "#12695a", "tonalRamp": ["oklch(12% 0.02 175)", "oklch(20% 0.035 175)", "oklch(28% 0.05 175)", "oklch(36% 0.065 175)", "oklch(45% 0.075 175)", "oklch(56% 0.07 175)", "oklch(70% 0.055 178)", "oklch(85% 0.03 180)"] },
+      "teal-ink": { "role": "secondary", "displayName": "Teal Ink", "canonical": "#0c4a3f", "tonalRamp": ["oklch(10% 0.015 175)", "oklch(17% 0.03 175)", "oklch(24% 0.045 175)", "oklch(31% 0.055 175)", "oklch(39% 0.06 175)", "oklch(50% 0.055 176)", "oklch(65% 0.045 178)", "oklch(82% 0.025 180)"] },
+      "crimson": { "role": "tertiary", "displayName": "Alert Crimson", "canonical": "#a92c26", "tonalRamp": ["oklch(14% 0.04 25)", "oklch(23% 0.07 25)", "oklch(32% 0.1 25)", "oklch(41% 0.13 25)", "oklch(50% 0.15 25)", "oklch(61% 0.14 27)", "oklch(74% 0.1 30)", "oklch(88% 0.05 32)"] },
+      "crimson-ink": { "role": "tertiary", "displayName": "Crimson Ink", "canonical": "#7c1f1b", "tonalRamp": ["oklch(11% 0.03 22)", "oklch(18% 0.05 22)", "oklch(26% 0.08 22)", "oklch(33% 0.1 22)", "oklch(42% 0.11 24)", "oklch(53% 0.1 26)", "oklch(68% 0.075 28)", "oklch(84% 0.04 30)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero name only — the single largest mark on the board, capped at 96px/6rem." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (Selected Work, About, Experience, Capabilities, Contact)." },
+      "title": { "displayName": "Title", "purpose": "Row-level headings inside a section — a work item's title, sub-headings." },
+      "body": { "displayName": "Body", "purpose": "Running copy, held to a 65-75ch measure via .pf-prose regardless of font-size context." },
+      "label": { "displayName": "Label", "purpose": "Metadata: row codes, tag text, nav tabs, form labels, footer line." }
+    },
+    "shadows": [
+      { "name": "chip", "value": "0 1px 2px rgba(34,20,10,0.10)", "purpose": "Tags and small pill elements — barely lifted." },
+      { "name": "row", "value": "0 1px 2px rgba(34,20,10,0.05), 0 6px 16px -8px rgba(34,20,10,0.14)", "purpose": "Stamp panels and solid buttons — a medium lift." },
+      { "name": "panel", "value": "0 2px 4px rgba(34,20,10,0.06), 0 16px 40px -16px rgba(34,20,10,0.20)", "purpose": "Panels, the ID card, and the bottom nav dock — the deepest, softest lift." }
+    ],
+    "motion": [
+      { "name": "pf-ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Shared out-easing for hover/focus/press state transitions." },
+      { "name": "pf-ease", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Standard easing, available but less used than pf-ease-out." },
+      { "name": "pf-press", "value": "transform 160ms ease-out", "purpose": "Shared press-scale feedback on every .pf-pressable element (scale to 0.97 on :active)." },
+      { "name": "flip-in-reveal", "value": "gsap.from({ opacity: 0, rotateX: -14, duration: 0.7, ease: 'expo.out', stagger: 0.06 }), reduced-motion: { opacity: 0, duration: 0.35, ease: 'power1.out', stagger: 0 }", "purpose": "The single authored section-entrance animation (src/animations/portfolioReveal.js), reused by every section instead of a per-section entrance. ScrollTrigger start 'top 80-85%', plays once." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "860px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Primary call to action — hero 'View Work', contact form submit.",
+      "html": "<button class=\"ds-btn-solid\">View Work</button>",
+      "css": ".ds-btn-solid { display: inline-flex; align-items: center; justify-content: center; font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 999px; background: #221d17; color: #f4efe4; border: 1px solid #221d17; box-shadow: 0 1px 2px rgba(34,20,10,0.05), 0 6px 16px -8px rgba(34,20,10,0.14); transition: transform 160ms ease-out, background 160ms cubic-bezier(0.23,1,0.32,1); cursor: pointer; } .ds-btn-solid:hover { background: #34291c; } .ds-btn-solid:focus-visible { outline: 2px solid #c97a1f; outline-offset: 3px; } .ds-btn-solid:active { transform: scale(0.97); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action — hero 'LinkedIn' link.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 999px; background: transparent; color: #221d17; border: 1px solid #cdc3ad; text-decoration: none; transition: transform 160ms ease-out, border-color 160ms cubic-bezier(0.23,1,0.32,1); } .ds-btn-outline:hover { border-color: #221d17; } .ds-btn-outline:focus-visible { outline: 2px solid #c97a1f; outline-offset: 3px; } .ds-btn-outline:active { transform: scale(0.97); }"
+    },
+    {
+      "name": "Status Tag (Amber)",
+      "kind": "chip",
+      "refersTo": "tag-amber",
+      "description": "Most-recent/featured status marker.",
+      "html": "<span class=\"ds-tag-amber\">Most Recent</span>",
+      "css": ".ds-tag-amber { display: inline-flex; align-items: center; font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 5px 12px; border-radius: 999px; box-shadow: 0 1px 2px rgba(34,20,10,0.10); background: color-mix(in srgb, #c97a1f 16%, #f4efe4); color: #8f570f; white-space: nowrap; }"
+    },
+    {
+      "name": "Status Tag (Neutral)",
+      "kind": "chip",
+      "refersTo": "tag-neutral",
+      "description": "Quiet secondary metadata — location, timelines, soft skills.",
+      "html": "<span class=\"ds-tag-neutral\">Remote</span>",
+      "css": ".ds-tag-neutral { display: inline-flex; align-items: center; font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 5px 12px; border-radius: 999px; background: #f4efe4; color: #5f5647; border: 1px solid #cdc3ad; white-space: nowrap; }"
+    },
+    {
+      "name": "Board Row",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "The repeating unit inside a panel — code | content | period | tag columns with a bottom hairline. The core visual grammar of the system.",
+      "html": "<div class=\"ds-row\"><span class=\"ds-row-code\">JW·26</span><div><h3 class=\"ds-row-title\">Data Analyst</h3><p class=\"ds-row-sub\">Example Co.</p></div><span class=\"ds-row-period\">2024 — 2026</span><span class=\"ds-tag-amber\">Most Recent</span></div>",
+      "css": ".ds-row { display: grid; grid-template-columns: 56px 1fr auto auto; gap: 8px 24px; align-items: start; padding: 24px 28px; border-bottom: 1px solid #cdc3ad; background: #f4efe4; } .ds-row-code { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: #5f5647; white-space: nowrap; } .ds-row-title { font-family: 'Big Shoulders', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.01em; color: #221d17; } .ds-row-sub { font-family: 'Work Sans', sans-serif; font-size: 14px; font-weight: 600; color: #5f5647; margin-top: 2px; } .ds-row-period { font-family: 'Work Sans', sans-serif; font-size: 13px; color: #5f5647; white-space: nowrap; }"
+    },
+    {
+      "name": "ID Card",
+      "kind": "custom",
+      "refersTo": "id-card",
+      "description": "Boarding-pass styled portrait frame used once, in the hero.",
+      "html": "<div class=\"ds-id-card\"><img src=\"portrait.jpg\" alt=\"\" /></div>",
+      "css": ".ds-id-card { background: #faf7ef; box-shadow: 0 2px 4px rgba(34,20,10,0.06), 0 16px 40px -16px rgba(34,20,10,0.20); border-radius: 16px; padding: 14px; position: relative; max-width: 340px; } .ds-id-card img { width: 100%; display: block; border-radius: 8px; aspect-ratio: 3/4; object-fit: cover; object-position: top center; } .ds-id-card::after { content: ''; position: absolute; inset: 14px; border: 1px dashed #cdc3ad; border-radius: 8px; pointer-events: none; }"
+    },
+    {
+      "name": "Stamp Panel",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Customs-stamp styled panel for short editorial statements — the About pull-quote and the Education record.",
+      "html": "<div class=\"ds-stamp\"><p class=\"ds-stamp-text\">“Grounded in critical thinking.”</p></div>",
+      "css": ".ds-stamp { background: #faf7ef; box-shadow: 0 1px 2px rgba(34,20,10,0.05), 0 6px 16px -8px rgba(34,20,10,0.14); border-radius: 12px; padding: 26px 52px 26px 28px; position: relative; } .ds-stamp::before { content: ''; position: absolute; top: 16px; right: 16px; width: 26px; height: 26px; border: 2px solid color-mix(in srgb, #a92c26 55%, #faf7ef); border-radius: 50%; opacity: 0.5; } .ds-stamp-text { font-family: 'Big Shoulders', sans-serif; font-weight: 700; font-size: 21px; line-height: 1.35; color: #221d17; }"
+    },
+    {
+      "name": "Nav Dock",
+      "kind": "nav",
+      "refersTo": "panel",
+      "description": "Fixed bottom-centered pill dock with section tabs.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-tab\" href=\"#\">Home</a><a class=\"ds-nav-tab\" href=\"#\">Work</a><a class=\"ds-nav-tab\" href=\"#\">About</a><a class=\"ds-nav-tab\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; gap: 2px; background: #faf7ef; box-shadow: 0 2px 4px rgba(34,20,10,0.06), 0 16px 40px -16px rgba(34,20,10,0.20); border-radius: 999px; padding: 6px; border: 1px solid #cdc3ad; } .ds-nav-tab { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5f5647; text-decoration: none; padding: 10px 20px; border-radius: 999px; transition: color 160ms cubic-bezier(0.23,1,0.32,1), background 160ms cubic-bezier(0.23,1,0.32,1); } .ds-nav-tab:hover { color: #221d17; background: color-mix(in srgb, #c97a1f 12%, transparent); } .ds-nav-tab:active { transform: scale(0.96); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Arrivals Board",
+    "overview": "This is the light world beneath a dark, saturated cinematic intro (a separate, untouched world outside this document's scope) — the moment the site stops being a film and becomes a record. It reads as a live arrivals/exchange board, not a resume template: status and dates over paragraphs, a pale stone-and-plaster ground instead of paper-white, warm charcoal ink instead of pure black, and three enamel accent colors that each carry exactly one status meaning rather than decorating at will. Every section is built from the same small set of parts — panel, row, tag, stamp — the way a real departure board is built from the same tile repeated down the hall. The system deliberately breaks clean from the intro's dark/gold register; the only thread connecting the two halves is the continuous ambient audio, not a shared visual motif. Within the portfolio half itself, identity and status data (a role, a location, a date, a \"most recent\" claim) are never set as a caption stacked above a heading — they are tag chips beside it or grid columns next to it, the way a board places the gate number beside the flight, not above it.",
+    "keyCharacteristics": [
+      "Pale stone/plaster ground (#e9e3d5) with warm charcoal ink (#221d17), never pure black or pure white.",
+      "Three enamel accents with fixed status meanings: amber (most recent/featured), teal (settled/steady), crimson (contact/alert) — never interchangeable.",
+      "Condensed Big Shoulders (800 weight) for every headline; Work Sans for everything read as running text or data.",
+      "One authored motion moment — a board-tile flip-in (rotateX + opacity) — reused across every section instead of a different entrance per section.",
+      "Soft, ink-tinted shadows only; no hard offset shadows, no colored border-left/right rules, no kickers."
+    ],
+    "rules": [
+      { "name": "The Three-Enamel Rule", "body": "Amber, teal, and crimson each carry exactly one status meaning across the whole board — most-recent, settled, and contact/alert respectively. A color is never reused for a different status just because it \"looks good\" in a new spot.", "section": "colors" },
+      { "name": "The Condensed/Body Split Rule", "body": "Big Shoulders is exclusively for headings and short stamped statements (the About pull-quote, the Education line); Work Sans carries every paragraph, label, tag, and form field. The two fonts never swap roles.", "section": "typography" },
+      { "name": "The Ink-Tinted Depth Rule", "body": "Every shadow pairs a tight offset+blur with a longer, softer, more diffuse one, both tinted with the ink color rather than neutral black — never a zero-offset halo. Larger surfaces read thicker: panels carry more blur and reach further than chips, matching their visual weight.", "section": "elevation" },
+      { "name": "The Interactive-Pill Rule", "body": "If it can be clicked, pressed, or read as a status tag, its corners go fully round (999px). If it only contains content, its corners take a smaller fixed radius proportional to its size. The two registers never mix on the same element.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep identity/status data (role, location, date, \"most recent\") as a tag chip beside a heading or a grid column next to it — never a caption stacked above.",
+      "Do pair every shadow with both offset and blur, tinted with the ink color, scaled to the surface's size (chip < row < panel).",
+      "Do use flipInReveal() (rotateX −14°, opacity 0→1, expo.out, 0.7s, 0.06s stagger) as the only section-entrance animation; keep hover/press micro-interactions (the WorkItem preview expand, .pf-pressable scale) as separate, local motion rather than a competing entrance style.",
+      "Do cap display type at 96px/6rem and hold body measure to 65–75ch (.pf-prose { max-width: 70ch }).",
+      "Do gate hover-only treatments behind (hover: hover) and (pointer: fine) so touch devices see a clean default state instead of a stuck hover.",
+      "Do respect prefers-reduced-motion: flipInReveal drops to a 0.35s opacity-only cross-fade with no rotation and no stagger."
+    ],
+    "donts": [
+      "Don't use a border-left or border-right heavier than 1px as a decorative device; dividers and rules are always a 1px hairline in Weathered Line.",
+      "Don't compute or imply an \"active/current\" employment badge from date math; \"Most Recent\" is the only status claim, and it is true by list order alone, not by inference.",
+      "Don't apply backdrop-blur as decoration anywhere inside .portfolio-world.",
+      "Don't let the three enamel accents swap roles — amber never marks \"settled,\" teal never marks \"alert/contact,\" crimson never marks \"most recent/featured.\"",
+      "Don't stack a kicker or eyebrow caption above a heading; restructure the data into a tag chip or an adjacent grid column instead."
+    ]
+  }
+}

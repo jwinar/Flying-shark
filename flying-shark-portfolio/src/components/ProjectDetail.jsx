@@ -38,14 +38,27 @@ const ProjectDetail = () => {
       <QingScene />
       <ModernTransition />
       <RedThreadScene />
-      <PortfolioNavigation />
-      <div id="hero"><PortfolioHero /></div>
-      <div id="work"><PortfolioWork /></div>
-      <div id="about"><PortfolioAbout /></div>
-      <PortfolioExperience />
-      <PortfolioCapabilities />
-      <div id="contact"><PortfolioContact /></div>
-      <PortfolioFooter />
+      {/*
+        Direction contract — "The Arrivals Board" (locked 2026-08-10, see
+        PORTFOLIO_REDESIGN_PLAN.md). This div is the visual boundary between
+        the dark/gold historical intro above (siblings, untouched) and the
+        light stone/plaster "arrivals board" world below. Pale ground, warm
+        charcoal ink, three enamel accents (amber = most-recent, teal =
+        settled, crimson = contact/alert). Board-tile flip-in is the one
+        authored motion moment, reused consistently across every section.
+        Scope is visuals only — content, copy, and behavior are unchanged.
+      */}
+      <div className="portfolio-world">
+        <div className="pf-nav-scrim" aria-hidden="true" />
+        <PortfolioNavigation />
+        <div id="hero"><PortfolioHero /></div>
+        <div id="work"><PortfolioWork /></div>
+        <div id="about"><PortfolioAbout /></div>
+        <PortfolioExperience />
+        <PortfolioCapabilities />
+        <div id="contact"><PortfolioContact /></div>
+        <PortfolioFooter />
+      </div>
     </>
   );
 };
